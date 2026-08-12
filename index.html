@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Road to Mary v0.9 · Marian Rosary opening -->
+<!-- Road to Mary v0.10 · Complete Rosary Experience -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -79,6 +79,22 @@
     .mini-card{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,248,255,.88));border-color:rgba(226,170,47,.35)}
     .install-note{background:linear-gradient(135deg,#e5f5ff,#fff5d8 55%,#ffeef3)}
     @media(max-width:430px){.hero{border-radius:22px}.grid{gap:12px}.card{padding:16px}}
+
+    /* v0.10 Complete Rosary Experience */
+    .mystery{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+    .mystery:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(31,94,153,.10)}
+    .guided-card{text-align:center}
+    .guided-prayer-name{font-size:1.35rem;color:var(--navy);font-weight:bold;margin:10px 0 8px}
+    .guided-prayer-text{white-space:pre-line;line-height:1.75;font-size:1.03rem;text-align:left;background:linear-gradient(135deg,#fbfeff,#fff9ef);border:1px solid #d9e8f2;border-radius:16px;padding:16px;margin:14px 0}
+    .guided-mystery{font-size:1.05rem;color:#1b5ea6;font-weight:bold;margin:8px 0}
+    .guided-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+    .guided-controls button{margin:0}
+    .guided-progress-bar{height:10px;background:#e7eef5;border-radius:999px;overflow:hidden;margin:12px 0}
+    .guided-progress-fill{height:100%;background:linear-gradient(90deg,#e2aa2f,#68c7d8);width:0%;transition:width .25s ease}
+    .hail-count{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:12px 0}
+    .hail-dot{width:18px;height:18px;border-radius:50%;border:2px solid #e2aa2f;background:#fff7da}
+    .hail-dot.done{background:#e2aa2f}
+
   </style>
 </head>
 <body>
@@ -110,8 +126,34 @@
 
   <section id="rosary" class="screen">
     <button class="back" onclick="openScreen('home')">← Back to Chapel</button>
-    <div class="panel"><span class="badge" id="rosaryDay"></span><h2 id="rosaryTitle">Today’s Rosary</h2><p id="rosaryIntro"></p><div id="mysteries" class="mystery-list"></div><button class="primary" onclick="openScreen('driving')">Open Driving Rosary</button></div>
+    <div class="panel"><span class="badge" id="rosaryDay"></span><h2 id="rosaryTitle">Today’s Rosary</h2><p id="rosaryIntro"></p><div id="mysteries" class="mystery-list"></div><div class="actions" style="margin-top:14px"><button class="primary" onclick="startGuidedRosary(0)">Start Guided Rosary</button><button class="secondary" onclick="openScreen('driving')">Open Driving Rosary</button></div></div>
     <div class="panel"><h3>One Decade Prayer Counter</h3><p class="small">Tap each bead as you pray a Hail Mary. Progress stays on this device.</p><div class="beads" id="beads"></div><div class="progress" id="beadProgress">0 of 10</div><div class="actions" style="margin-top:14px"><button class="secondary" onclick="resetBeads()">Reset decade</button></div></div>
+  </section>
+
+
+  <section id="guided" class="screen">
+    <button class="back" onclick="openScreen('rosary')">← Back to Rosary</button>
+    <div class="panel guided-card">
+      <span class="badge">Guided Rosary</span>
+      <h2 id="guidedTitle">Today’s Rosary</h2>
+      <div class="guided-mystery" id="guidedMystery"></div>
+      <div class="progress" id="guidedProgress">Ready to begin</div>
+      <div class="guided-progress-bar"><div class="guided-progress-fill" id="guidedProgressFill"></div></div>
+      <div class="guided-prayer-name" id="guidedPrayerName"></div>
+      <div class="hail-count" id="guidedHailDots"></div>
+      <div class="guided-prayer-text" id="guidedPrayerText"></div>
+      <div class="guided-controls">
+        <button class="secondary" onclick="previousGuidedStep()">← Previous</button>
+        <button class="primary" id="guidedSpeakButton" onclick="speakGuidedStep()">🔊 Listen</button>
+        <button class="secondary" onclick="nextGuidedStep()">Next →</button>
+      </div>
+      <div class="actions" style="justify-content:center;margin-top:12px">
+        <button class="secondary" onclick="repeatGuidedStep()">Repeat</button>
+        <button class="secondary" onclick="pauseGuidedAudio()">Pause Audio</button>
+        <button class="secondary" onclick="restartGuidedRosary()">Start Again</button>
+      </div>
+      <p class="small" style="margin-top:14px">Your place is saved automatically on this device.</p>
+    </div>
   </section>
 
   <section id="driving" class="screen">
@@ -139,7 +181,7 @@
 
   <section id="journal" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><div class="screen-title"><div class="icon">📝</div><div><h2 style="margin:0">My Prayer Journal</h2><p class="small" style="margin:4px 0 0">Private and stored only on this device.</p></div></div><textarea id="journalInput" placeholder="Jesus, today I want to thank You for..." style="margin-top:16px"></textarea><div class="actions" style="margin-top:12px"><button class="primary" onclick="saveJournalEntry()">Save Reflection</button><button class="secondary" onclick="clearJournal()">Clear Journal</button></div></div><div class="panel"><h3>My Reflections</h3><div id="journalList"></div></div></section>
 </main>
-<div class="footer-note">Road to Mary · Marian Rosary Version 0.9</div>
+<div class="footer-note">Road to Mary · Complete Rosary Version 0.10</div>
 <nav>
   <button data-screen="home" class="active" onclick="openScreen('home')"><span>🏠</span>Home</button>
   <button data-screen="rosary" onclick="openScreen('rosary')"><span>📿</span>Rosary</button>
@@ -178,7 +220,7 @@ const prayers=[
  {title:'Prayer to St. Michael',text:'Saint Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly hosts, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.'}
 ];
 function openScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'});}
-function setup(){const now=new Date();document.getElementById('todayDate').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});const h=now.getHours();document.getElementById('greeting').textContent=h<12?'Good Morning':h<18?'Good Afternoon':'Good Evening';const day=now.getDay(),data=mysteriesByDay[day];document.getElementById('todayMysteryCard').textContent=data[0];document.getElementById('rosaryDay').textContent=now.toLocaleDateString(undefined,{weekday:'long'});document.getElementById('rosaryTitle').textContent=data[0];document.getElementById('rosaryIntro').textContent='Pause before each mystery, recall the life of Jesus and Mary, and offer your intention.';document.getElementById('mysteries').innerHTML=data[1].map((m,i)=>`<div class="mystery"><strong>${i+1}. ${m}</strong><div class="small">Our Father · 10 Hail Marys · Glory Be</div></div>`).join('');renderBeads();renderIntentions();renderSaints();renderPrayers();const item=scriptures[Math.floor(Date.now()/86400000)%scriptures.length];document.getElementById('scriptureTitle').textContent=item[0];document.getElementById('scriptureVerse').textContent=item[1];document.getElementById('scriptureReflection').textContent=item[2];const invites=['Pray one decade for someone who needs hope.','Call someone who may be lonely today.','Spend five quiet minutes with Jesus.','Offer today’s work for someone who is suffering.','Thank God for one blessing you often overlook.'];document.getElementById('invitationText').textContent=invites[Math.floor(Date.now()/86400000)%invites.length];}
+function setup(){const now=new Date();document.getElementById('todayDate').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});const h=now.getHours();document.getElementById('greeting').textContent=h<12?'Good Morning':h<18?'Good Afternoon':'Good Evening';const day=now.getDay(),data=mysteriesByDay[day];document.getElementById('todayMysteryCard').textContent=data[0];document.getElementById('rosaryDay').textContent=now.toLocaleDateString(undefined,{weekday:'long'});document.getElementById('rosaryTitle').textContent=data[0];document.getElementById('rosaryIntro').textContent='Pause before each mystery, recall the life of Jesus and Mary, and offer your intention.';document.getElementById('mysteries').innerHTML=data[1].map((m,i)=>`<div class="mystery" onclick="startGuidedRosary(${i})"><strong>${i+1}. ${m}</strong><div class="small">Tap to pray · Our Father · 10 Hail Marys · Glory Be · Fatima Prayer</div></div>`).join('');renderBeads();renderIntentions();renderSaints();renderPrayers();const item=scriptures[Math.floor(Date.now()/86400000)%scriptures.length];document.getElementById('scriptureTitle').textContent=item[0];document.getElementById('scriptureVerse').textContent=item[1];document.getElementById('scriptureReflection').textContent=item[2];const invites=['Pray one decade for someone who needs hope.','Call someone who may be lonely today.','Spend five quiet minutes with Jesus.','Offer today’s work for someone who is suffering.','Thank God for one blessing you often overlook.'];document.getElementById('invitationText').textContent=invites[Math.floor(Date.now()/86400000)%invites.length];}
 function renderBeads(){let count=Number(localStorage.getItem('rtmBeads')||0);document.getElementById('beads').innerHTML=Array.from({length:10},(_,i)=>`<button class="bead ${i<count?'done':''}" onclick="setBeads(${i+1})">${i+1}</button>`).join('');document.getElementById('beadProgress').textContent=`${count} of 10`;}
 function setBeads(n){let current=Number(localStorage.getItem('rtmBeads')||0);localStorage.setItem('rtmBeads',n===current?n-1:n);renderBeads();}function resetBeads(){localStorage.setItem('rtmBeads',0);renderBeads();}
 function getIntentions(){try{return JSON.parse(localStorage.getItem('rtmIntentions')||'[]')}catch{return[]}}
@@ -191,6 +233,76 @@ function renderSaints(){document.getElementById('saintCards').innerHTML=saints.m
 function renderPrayers(){document.getElementById('prayerCards').innerHTML=prayers.map((p,i)=>`<div class="panel"><button class="card" style="box-shadow:none;padding:0;border:0" onclick="togglePrayer(${i})"><h3>${p.title}</h3><p>Tap to open or close</p></button><div id="prayer-${i}" class="prayer" style="display:none;margin-top:14px">${p.text}</div></div>`).join('');}
 function togglePrayer(i){const el=document.getElementById('prayer-'+i);el.style.display=el.style.display==='none'?'block':'none';}
 
+
+const guidedPrayerText={
+  'Sign of the Cross':'In the name of the Father, and of the Son, and of the Holy Spirit. Amen.',
+  'Apostles’ Creed':'I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord; who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.',
+  'Our Father':'Our Father, who art in heaven,\nhallowed be thy name;\nthy kingdom come;\nthy will be done on earth as it is in heaven.\nGive us this day our daily bread;\nand forgive us our trespasses,\nas we forgive those who trespass against us;\nand lead us not into temptation,\nbut deliver us from evil. Amen.',
+  'Hail Mary':'Hail Mary, full of grace, the Lord is with thee.\nBlessed art thou among women, and blessed is the fruit of thy womb, Jesus.\nHoly Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.',
+  'Glory Be':'Glory be to the Father, and to the Son, and to the Holy Spirit,\nas it was in the beginning, is now, and ever shall be, world without end. Amen.',
+  'Fatima Prayer':'O my Jesus, forgive us our sins, save us from the fires of hell, lead all souls to heaven, especially those most in need of your mercy. Amen.',
+  'Hail Holy Queen':'Hail, Holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.',
+  'Closing Prayer':'O God, whose only begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal life, grant, we beseech thee, that while meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen.'
+};
+
+function buildGuidedSequence(){
+  const data=mysteriesByDay[new Date().getDay()], seq=[];
+  seq.push({name:'Sign of the Cross',mystery:'Opening Prayers'});
+  seq.push({name:'Apostles’ Creed',mystery:'Opening Prayers'});
+  seq.push({name:'Our Father',mystery:'Opening Prayers'});
+  for(let i=1;i<=3;i++)seq.push({name:'Hail Mary',mystery:'Opening Prayers',hail:i,totalHails:3});
+  seq.push({name:'Glory Be',mystery:'Opening Prayers'});
+  data[1].forEach((m,mi)=>{
+    seq.push({name:'Announce the Mystery',mystery:`${mi+1}. ${m}`,text:`The ${ordinal(mi+1)} mystery: ${m}. Take a quiet moment to reflect on this mystery and offer your intention.`});
+    seq.push({name:'Our Father',mystery:`${mi+1}. ${m}`});
+    for(let i=1;i<=10;i++)seq.push({name:'Hail Mary',mystery:`${mi+1}. ${m}`,hail:i,totalHails:10});
+    seq.push({name:'Glory Be',mystery:`${mi+1}. ${m}`});
+    seq.push({name:'Fatima Prayer',mystery:`${mi+1}. ${m}`});
+  });
+  seq.push({name:'Hail Holy Queen',mystery:'Closing Prayers'});
+  seq.push({name:'Closing Prayer',mystery:'Closing Prayers'});
+  seq.push({name:'Sign of the Cross',mystery:'Closing Prayers'});
+  return seq;
+}
+function ordinal(n){return ['first','second','third','fourth','fifth'][n-1]||n+'th';}
+let guidedState=JSON.parse(localStorage.getItem('rtmGuidedState')||'{"step":0}');
+function saveGuided(){localStorage.setItem('rtmGuidedState',JSON.stringify(guidedState));}
+function startGuidedRosary(mysteryIndex=0){
+  const seq=buildGuidedSequence();
+  if(mysteryIndex>0){
+    const target=seq.findIndex(x=>x.mystery.startsWith((mysteryIndex+1)+'.')&&x.name==='Announce the Mystery');
+    guidedState.step=target>=0?target:0;
+  } else if(!Number.isFinite(guidedState.step)) guidedState.step=0;
+  saveGuided(); openScreen('guided'); renderGuidedStep();
+}
+function renderGuidedStep(){
+  const seq=buildGuidedSequence();
+  guidedState.step=Math.max(0,Math.min(guidedState.step,seq.length-1));
+  const item=seq[guidedState.step], data=mysteriesByDay[new Date().getDay()];
+  document.getElementById('guidedTitle').textContent=data[0];
+  document.getElementById('guidedMystery').textContent=item.mystery;
+  document.getElementById('guidedProgress').textContent=`Step ${guidedState.step+1} of ${seq.length}`;
+  document.getElementById('guidedProgressFill').style.width=((guidedState.step+1)/seq.length*100)+'%';
+  document.getElementById('guidedPrayerName').textContent=item.name+(item.hail?` ${item.hail} of ${item.totalHails}`:'');
+  document.getElementById('guidedPrayerText').textContent=item.text||guidedPrayerText[item.name]||'';
+  const dots=document.getElementById('guidedHailDots');
+  dots.innerHTML=item.hail?Array.from({length:item.totalHails},(_,i)=>`<span class="hail-dot ${i<item.hail?'done':''}"></span>`).join(''):'';
+  saveGuided();
+}
+function nextGuidedStep(){pauseGuidedAudio();const seq=buildGuidedSequence();if(guidedState.step<seq.length-1){guidedState.step++;renderGuidedStep();}else{document.getElementById('guidedPrayerName').textContent='Rosary Complete';document.getElementById('guidedPrayerText').textContent='Thank you for praying the Rosary. May Mary lead us always closer to Jesus.';}}
+function previousGuidedStep(){pauseGuidedAudio();if(guidedState.step>0)guidedState.step--;renderGuidedStep();}
+function restartGuidedRosary(){pauseGuidedAudio();guidedState.step=0;renderGuidedStep();}
+function speakGuidedStep(){
+  if(!('speechSynthesis' in window))return;
+  pauseGuidedAudio();
+  const seq=buildGuidedSequence(),item=seq[guidedState.step];
+  const text=item.text||guidedPrayerText[item.name]||'';
+  const u=new SpeechSynthesisUtterance(text);u.rate=.86;u.lang='en-AU';speechSynthesis.speak(u);
+}
+function repeatGuidedStep(){speakGuidedStep();}
+function pauseGuidedAudio(){if('speechSynthesis' in window)speechSynthesis.cancel();}
+
+
 const drivePrayers={
  opening:['In the name of the Father, and of the Son, and of the Holy Spirit. Amen.','The Apostles’ Creed','Our Father','Three Hail Marys','Glory Be'],
  decade:['Announce the mystery and pause for reflection.','Our Father','Hail Mary 1','Hail Mary 2','Hail Mary 3','Hail Mary 4','Hail Mary 5','Hail Mary 6','Hail Mary 7','Hail Mary 8','Hail Mary 9','Hail Mary 10','Glory Be','O my Jesus'],
@@ -202,7 +314,8 @@ const spokenText={
 let driveMode=localStorage.getItem('rtmDriveMode')||'listen';
 let driveState=JSON.parse(localStorage.getItem('rtmDriveState')||'{"mystery":0,"step":0,"running":false}');
 let recognition=null,voiceEnabled=false;
-function setDriveMode(mode){driveMode=mode;localStorage.setItem('rtmDriveMode',mode);document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));updateDriveDisplay();}
+function setDriveMode(mode){driveMode=mode;localStorage.setItem('rtmDriveMode',mode);document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));updateDriveDisplay();
+if(document.getElementById('guidedProgress')) renderGuidedStep();}
 function currentDriveSequence(){const dayData=mysteriesByDay[new Date().getDay()];let seq=[];drivePrayers.opening.forEach(x=>seq.push({mystery:-1,label:'Opening Prayers',text:x}));dayData[1].forEach((m,mi)=>drivePrayers.decade.forEach((x,si)=>seq.push({mystery:mi,label:m,text:si===0?m:x})));drivePrayers.closing.forEach(x=>seq.push({mystery:5,label:'Closing Prayers',text:x}));return seq;}
 function saveDrive(){localStorage.setItem('rtmDriveState',JSON.stringify(driveState));}
 function updateDriveDisplay(){const seq=currentDriveSequence(),item=seq[Math.min(driveState.step,seq.length-1)];document.getElementById('driveMysteryTitle').textContent=item.label;document.getElementById('drivePrayerText').textContent=item.text;document.getElementById('driveProgress').textContent=`Step ${driveState.step+1} of ${seq.length} · ${driveMode==='listen'?'Listen':driveMode==='along'?'Pray Along':'Respond'}`;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===driveMode));}
