@@ -1,9 +1,10 @@
-<!-- Road to Mary v0.9 deployment refresh --><!doctype html>
+<!doctype html>
+<!-- Road to Mary v0.9 · Marian Rosary opening -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#17365d">
+  <meta name="theme-color" content="#1957a6">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Road to Mary">
@@ -26,14 +27,63 @@
     .drive-mode{display:grid;gap:10px}.mode-btn{border:1px solid #ccd8e5;background:white;border-radius:15px;padding:14px;text-align:left}.mode-btn.active{border:2px solid var(--gold);background:#fff8e7}.voice-status{background:#eef6ff;border-radius:14px;padding:14px;min-height:52px;line-height:1.45}.drive-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.drive-controls button{margin:0}.now-praying{font-size:1.12rem;line-height:1.6;color:var(--navy)}.notice{background:#fff5d9;border:1px solid #f0d48a;color:#66501a;padding:12px;border-radius:13px;line-height:1.4}.footer-note{text-align:center;color:var(--muted);font-size:.82rem;padding:22px}
     @media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.hero{padding:36px}.wide{grid-column:auto}}
 
-    .welcome{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#7999ba 0%,#d8e8f3 31%,#f7dfae 63%,#806d52 100%);transition:opacity .8s ease,visibility .8s ease;overflow:hidden}.welcome.hidden{opacity:0;visibility:hidden;pointer-events:none}.welcome:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 13%,rgba(255,247,201,.95),rgba(255,240,183,.2) 22%,transparent 42%)}.welcome-path{position:absolute;left:50%;bottom:-14%;width:58%;height:72%;transform:translateX(-50%);background:linear-gradient(90deg,transparent 0,rgba(255,237,195,.65) 18%,rgba(255,249,225,.95) 50%,rgba(255,237,195,.65) 82%,transparent 100%);clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);filter:blur(.2px)}.welcome-church{position:absolute;top:18%;left:50%;transform:translateX(-50%);font-size:5.3rem;filter:drop-shadow(0 10px 13px rgba(42,52,65,.24))}.welcome-content{position:relative;text-align:center;color:#17365d;max-width:460px;margin-top:34vh}.welcome-content h1{font-size:2.7rem;margin:0;text-shadow:0 2px 12px rgba(255,255,255,.9)}.welcome-content p{font-size:1.08rem;line-height:1.55;font-style:italic;margin:12px auto 18px}.welcome .primary{font-size:1.05rem;padding:15px 25px}.entering .welcome-church{animation:approach 1.5s ease forwards}.entering .welcome-path{animation:pathmove 1.5s ease forwards}@keyframes approach{to{transform:translateX(-50%) scale(1.35);top:15%}}@keyframes pathmove{to{width:82%;height:88%}}
+    .welcome{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#7999ba 0%,#d8e8f3 31%,#f7dfae 63%,#806d52 100%);transition:opacity .8s ease,visibility .8s ease;overflow:hidden}.welcome.hidden{opacity:0;visibility:hidden;pointer-events:none}.welcome:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 13%,rgba(255,247,201,.95),rgba(255,240,183,.2) 22%,transparent 42%)}.welcome-path{position:absolute;left:50%;bottom:-14%;width:58%;height:72%;transform:translateX(-50%);background:linear-gradient(90deg,transparent 0,rgba(255,237,195,.65) 18%,rgba(255,249,225,.95) 50%,rgba(255,237,195,.65) 82%,transparent 100%);clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);filter:blur(.2px)}.welcome-mary{position:absolute;top:5.5%;left:50%;transform:translateX(-50%);width:min(72vw,330px);height:min(62vh,520px);object-fit:cover;object-position:center 34%;border-radius:34px;box-shadow:0 18px 42px rgba(24,66,111,.28);border:2px solid rgba(255,218,118,.85);filter:saturate(1.05) contrast(1.02)}.welcome-content{position:absolute;left:18px;right:18px;bottom:max(28px,env(safe-area-inset-bottom));text-align:center;color:#17365d;max-width:480px;margin:auto;padding:14px 14px 10px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(255,248,227,.94));box-shadow:0 12px 30px rgba(24,66,111,.16);backdrop-filter:blur(8px)}.welcome-content h1{font-size:2.45rem;margin:0;text-shadow:0 2px 12px rgba(255,255,255,.9)}.welcome-content p{font-size:1.08rem;line-height:1.55;font-style:italic;margin:12px auto 18px}.welcome .primary{font-size:1.05rem;padding:15px 25px}.entering .welcome-mary{animation:approach 1.5s ease forwards}.entering .welcome-path{animation:pathmove 1.5s ease forwards}@keyframes approach{to{transform:translateX(-50%) scale(1.05);top:4.5%}}@keyframes pathmove{to{width:82%;height:88%}}
     .daily-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.mini-card{background:rgba(255,255,255,.88);border:1px solid rgba(201,154,60,.35);border-radius:18px;padding:15px;box-shadow:0 8px 22px rgba(23,54,93,.08)}.mini-card strong{color:var(--navy);display:block;margin-bottom:5px}.mini-card p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}.journal-entry{background:#fbfdff;border:1px solid #dce6f0;border-radius:14px;padding:13px;margin:9px 0}.journal-entry time{display:block;color:var(--muted);font-size:.78rem;margin-bottom:5px}.screen-title{display:flex;align-items:center;gap:10px}.screen-title .icon{margin:0}.install-note{background:linear-gradient(135deg,#edf6ff,#fff8e7);border:1px solid rgba(201,154,60,.45)}
-    @media(max-width:430px){.daily-strip{grid-template-columns:1fr}.welcome-content h1{font-size:2.25rem}.welcome-church{font-size:4.6rem}}
+    @media(max-width:430px){.daily-strip{grid-template-columns:1fr}.welcome-content h1{font-size:2.15rem}.welcome-mary{width:78vw;height:59vh;top:5%}.welcome-content{bottom:max(18px,env(safe-area-inset-bottom));padding:12px}.welcome-content p{margin:8px auto 12px}}
+
+    /* v0.8 Living Colours — brighter Marian palette, visual-only upgrade */
+    :root{
+      --navy:#123f7a;--blue:#246fc2;--sky:#dff3ff;--gold:#e2aa2f;--cream:#fff8e7;
+      --ink:#17324f;--muted:#60758b;--card:#ffffff;
+      --rose:#e98aa2;--aqua:#68c7d8;--lavender:#aa96d8;--sun:#ffd36a;
+      --shadow:0 14px 34px rgba(27,85,145,.15)
+    }
+    body{background:
+      radial-gradient(circle at 12% 7%,rgba(255,211,106,.24),transparent 25%),
+      radial-gradient(circle at 88% 20%,rgba(104,199,216,.20),transparent 26%),
+      linear-gradient(180deg,#e2f4ff 0%,#fff9ea 45%,#fff0f3 100%)}
+    header{background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(255,255,255,0));}
+    .brand{color:#124a91;text-shadow:0 2px 12px rgba(36,111,194,.10)}
+    .tagline{color:#cc8d16;font-weight:bold}
+    .hero{background:linear-gradient(135deg,#114f98 0%,#2878c9 52%,#54b6cf 100%);box-shadow:0 18px 42px rgba(26,91,158,.24)}
+    .hero:before{content:'';position:absolute;inset:-40% -20% auto auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,219,126,.30),transparent 67%)}
+    .verse{color:#fff0b8}.primary{background:linear-gradient(135deg,#ffd76f,#e3a62c);color:#153757;box-shadow:0 8px 20px rgba(200,139,24,.28)}
+    .primary:hover{filter:brightness(1.04)}
+    .section-title{color:#154f96}
+    .card{border-color:rgba(50,128,190,.24);box-shadow:0 12px 28px rgba(31,94,153,.11)}
+    .grid>.card:before{background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(226,244,255,.62))}
+    .grid>.card:after{background:radial-gradient(circle,rgba(255,204,92,.30),rgba(255,204,92,0) 72%)}
+    .grid>.card:nth-child(3n+1){border-color:rgba(36,111,194,.30)}
+    .grid>.card:nth-child(3n+2){border-color:rgba(233,138,162,.34)}
+    .grid>.card:nth-child(3n){border-color:rgba(104,199,216,.38)}
+    .grid>.card:nth-child(3n+1) .icon{background:linear-gradient(145deg,#e8f6ff,#bfe3ff);border-color:rgba(36,111,194,.28);box-shadow:0 7px 16px rgba(36,111,194,.16)}
+    .grid>.card:nth-child(3n+2) .icon{background:linear-gradient(145deg,#fff0f4,#f7c9d5);border-color:rgba(233,138,162,.35);box-shadow:0 7px 16px rgba(233,138,162,.16)}
+    .grid>.card:nth-child(3n) .icon{background:linear-gradient(145deg,#ecfbff,#c5edf2);border-color:rgba(104,199,216,.40);box-shadow:0 7px 16px rgba(104,199,216,.18)}
+    .grid>.card.wide{background:linear-gradient(135deg,#0f4c91 0%,#1e72bd 50%,#7e6fc1 100%);border-color:rgba(255,215,111,.76);box-shadow:0 16px 38px rgba(31,85,151,.24)}
+    .grid>.card.wide .icon{background:linear-gradient(145deg,#ffe39a,#e2aa2f)}
+    .panel{background:rgba(255,255,255,.94);border:1px solid rgba(72,145,193,.15);box-shadow:0 12px 30px rgba(38,99,151,.10)}
+    .badge{background:linear-gradient(135deg,#dff3ff,#f1eaff);color:#164e91}
+    .mystery{border-color:#cee6f5;background:linear-gradient(135deg,#fbfeff,#f5faff)}
+    .bead{border-color:#e1aa32;background:#fff6d8}.bead.done{background:linear-gradient(135deg,#f3bd43,#d59618)}
+    .secondary{border-color:#2877bd;color:#1d68ae;background:#fff}
+    .saved-list li,.journal-entry{background:linear-gradient(135deg,#f6fbff,#fff9f0);border-color:#d7e9f3}
+    .saint{border-left-color:#e2aa2f}.quote{color:#276cad}
+    .mode-btn.active{border-color:#e2aa2f;background:linear-gradient(135deg,#fff7d8,#fff0ec)}
+    .voice-status{background:linear-gradient(135deg,#e8f6ff,#f3ecff)}
+    .notice{background:linear-gradient(135deg,#fff6d9,#ffeef2);border-color:#efd18a}
+    nav{background:rgba(255,255,255,.94);border-top-color:#cfe2ef;box-shadow:0 -8px 28px rgba(34,91,145,.08)}nav button.active{color:#175da8}
+    .welcome{background:linear-gradient(180deg,#62a8e4 0%,#bfe7f5 30%,#ffe3a0 61%,#d7aa83 100%)}
+    .welcome:before{background:radial-gradient(circle at 50% 12%,rgba(255,247,190,1),rgba(255,220,112,.40) 24%,transparent 45%)}
+    .welcome-path{background:linear-gradient(90deg,transparent 0,rgba(255,222,151,.72) 18%,rgba(255,253,225,1) 50%,rgba(255,222,151,.72) 82%,transparent 100%)}
+    .welcome-content{color:#123f7a}.welcome-content h1{text-shadow:0 2px 14px rgba(255,255,255,.96);color:#114c91}
+    .mini-card{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,248,255,.88));border-color:rgba(226,170,47,.35)}
+    .install-note{background:linear-gradient(135deg,#e5f5ff,#fff5d8 55%,#ffeef3)}
+    @media(max-width:430px){.hero{border-radius:22px}.grid{gap:12px}.card{padding:16px}}
   </style>
 </head>
 <body>
 <div class="welcome" id="welcomeScreen" aria-label="Road to Mary welcome">
-  <div class="welcome-path"></div><div class="welcome-church">⛪</div>
+  <div class="welcome-path"></div><img class="welcome-mary" src="mary-rosary-12-stars.png" alt="Mary holding a rosary with twelve stars around her head">
   <div class="welcome-content"><div style="font-size:2rem">🌹</div><h1>Road to Mary</h1><p>“Every journey to Jesus begins with one prayer.”</p><button class="primary" onclick="enterChapel()">Begin Your Journey</button><div class="small" style="margin-top:12px;color:#334e69">To Jesus through Mary</div></div>
 </div>
 
@@ -89,7 +139,7 @@
 
   <section id="journal" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><div class="screen-title"><div class="icon">📝</div><div><h2 style="margin:0">My Prayer Journal</h2><p class="small" style="margin:4px 0 0">Private and stored only on this device.</p></div></div><textarea id="journalInput" placeholder="Jesus, today I want to thank You for..." style="margin-top:16px"></textarea><div class="actions" style="margin-top:12px"><button class="primary" onclick="saveJournalEntry()">Save Reflection</button><button class="secondary" onclick="clearJournal()">Clear Journal</button></div></div><div class="panel"><h3>My Reflections</h3><div id="journalList"></div></div></section>
 </main>
-<div class="footer-note">Road to Mary · Golden Path Version 0.7</div>
+<div class="footer-note">Road to Mary · Marian Rosary Version 0.9</div>
 <nav>
   <button data-screen="home" class="active" onclick="openScreen('home')"><span>🏠</span>Home</button>
   <button data-screen="rosary" onclick="openScreen('rosary')"><span>📿</span>Rosary</button>
@@ -165,8 +215,8 @@ function repeatDriveStep(){if('speechSynthesis'in window)speechSynthesis.cancel(
 function resetDrivingRosary(){pauseDrivingRosary();driveState={mystery:0,step:0,running:false};saveDrive();updateDriveDisplay();document.getElementById('voiceStatus').textContent='Ready to begin from the opening prayers.';}
 function toggleVoiceCommands(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('voiceStatus').textContent='Voice commands are not supported by this browser. Audio playback still works.';return;}if(voiceEnabled){voiceEnabled=false;recognition&&recognition.stop();document.getElementById('voiceButton').textContent='Enable Voice Commands';return;}recognition=new SR();recognition.continuous=true;recognition.interimResults=false;recognition.lang='en-AU';recognition.onresult=e=>{const cmd=e.results[e.results.length-1][0].transcript.toLowerCase();document.getElementById('voiceStatus').textContent=`Heard: “${cmd.trim()}”`;if(cmd.includes('pause')||cmd.includes('stop'))pauseDrivingRosary();else if(cmd.includes('continue')||cmd.includes('start')||cmd.includes('resume'))startDrivingRosary();else if(cmd.includes('next'))nextDriveStep();else if(cmd.includes('repeat'))repeatDriveStep();};recognition.onend=()=>{if(voiceEnabled)try{recognition.start()}catch{}};voiceEnabled=true;recognition.start();document.getElementById('voiceButton').textContent='Disable Voice Commands';document.getElementById('voiceStatus').textContent='Listening for voice commands.';}
 
-function enterChapel(){const w=document.getElementById('welcomeScreen');w.classList.add('entering');localStorage.setItem('rtmWelcomed','yes');setTimeout(()=>w.classList.add('hidden'),1200);}
-function prepareWelcome(){if(localStorage.getItem('rtmWelcomed')==='yes')document.getElementById('welcomeScreen').classList.add('hidden');}
+function enterChapel(){const w=document.getElementById('welcomeScreen');w.classList.add('entering');localStorage.setItem('rtmWelcomedV09','yes');setTimeout(()=>w.classList.add('hidden'),1200);}
+function prepareWelcome(){if(localStorage.getItem('rtmWelcomedV09')==='yes')document.getElementById('welcomeScreen').classList.add('hidden');}
 function renderGospel(){const item=gospels[Math.floor(Date.now()/86400000)%gospels.length];document.getElementById('gospelTitle').textContent=item[0];document.getElementById('gospelReading').textContent=item[1];document.getElementById('gospelReflection').textContent=item[2];document.getElementById('gospelAction').textContent=item[3];document.getElementById('gospelPreview').textContent=item[0]+' · '+item[1].replace(/[“”]/g,'');}
 function getJournal(){try{return JSON.parse(localStorage.getItem('rtmJournal')||'[]')}catch{return[]}}
 function saveJournalEntry(){const el=document.getElementById('journalInput'),text=el.value.trim();if(!text)return;const list=getJournal();list.unshift({text,date:new Date().toLocaleString('en-AU')});localStorage.setItem('rtmJournal',JSON.stringify(list));el.value='';renderJournal();}
