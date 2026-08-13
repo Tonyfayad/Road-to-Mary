@@ -1,347 +1,67 @@
 <!doctype html>
-<!-- Road to Mary v0.10 · Complete Rosary Experience -->
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#1957a6">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Road to Mary">
-  <title>Road to Mary</title>
-  <style>
-    :root{--navy:#17365d;--blue:#315f92;--sky:#e9f2fb;--gold:#c99a3c;--cream:#fffaf0;--ink:#203044;--muted:#68778a;--card:#ffffff;--shadow:0 12px 32px rgba(24,54,93,.12)}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:linear-gradient(180deg,#eef6ff 0,#fffaf0 48%,#f7efe3 100%);min-height:100vh}
-    button,input,textarea{font:inherit} button{cursor:pointer}
-    .app{max-width:760px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 0 calc(82px + env(safe-area-inset-bottom))}
-    header{padding:22px 20px 12px;text-align:center}.brand{font-size:1.9rem;color:var(--navy);font-weight:bold}.tagline{color:var(--gold);font-style:italic;margin-top:4px}.date{color:var(--muted);font-size:.92rem;margin-top:8px}
-    main{padding:0 16px}.screen{display:none;animation:fade .25s ease}.screen.active{display:block}@keyframes fade{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
-    .hero{background:linear-gradient(145deg,rgba(23,54,93,.97),rgba(49,95,146,.9));color:white;border-radius:24px;padding:28px 23px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:'✦';position:absolute;right:20px;top:12px;font-size:5rem;color:rgba(255,255,255,.08)}.hero h1{margin:0 0 8px;font-size:2rem}.hero p{line-height:1.55;margin:8px 0}.verse{font-style:italic;color:#f9e7bd}.primary{border:0;border-radius:999px;background:var(--gold);color:#182b43;padding:13px 20px;font-weight:bold;margin-top:12px;box-shadow:0 6px 14px rgba(0,0,0,.13)}
-    .section-title{color:var(--navy);font-size:1.3rem;margin:26px 4px 14px;letter-spacing:.02em}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:rgba(255,255,255,.9);border:1px solid rgba(201,154,60,.38);border-radius:22px;padding:18px;box-shadow:0 12px 28px rgba(23,54,93,.10),inset 0 1px 0 rgba(255,255,255,.9);position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}button.card{text-align:left;color:inherit;width:100%}.grid>.card:before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(233,242,251,.5));z-index:0}.grid>.card:after{content:'';position:absolute;width:90px;height:90px;border-radius:50%;right:-34px;top:-36px;background:radial-gradient(circle,rgba(201,154,60,.22),rgba(201,154,60,0) 72%)}.grid>.card>*{position:relative;z-index:1}.grid>.card:hover{transform:translateY(-3px);box-shadow:0 17px 34px rgba(23,54,93,.16);border-color:rgba(201,154,60,.75)}.card:active{transform:scale(.975)}.icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;font-size:1.55rem;background:linear-gradient(145deg,#fff8e7,#f3dfae);border:1px solid rgba(201,154,60,.45);box-shadow:0 6px 14px rgba(201,154,60,.18);margin-bottom:11px}.card h3{margin:0 0 6px;color:var(--navy);font-size:1.08rem;letter-spacing:.01em}.card p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.42}.grid>.card:nth-child(2n) .icon{background:linear-gradient(145deg,#f4f9ff,#dcecfb);border-color:rgba(49,95,146,.28);box-shadow:0 6px 14px rgba(49,95,146,.14)}.grid>.card.wide{background:linear-gradient(135deg,rgba(23,54,93,.97),rgba(49,95,146,.93));border-color:rgba(232,198,120,.7);color:white}.grid>.card.wide:before{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.1))}.grid>.card.wide h3,.grid>.card.wide p{color:white}.grid>.card.wide p{color:rgba(255,255,255,.78)}.grid>.card.wide .icon{background:linear-gradient(145deg,#f6dc9c,#c99a3c);border-color:rgba(255,255,255,.3)}.wide{grid-column:1/-1}
-    .panel{background:var(--card);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin:12px 0}.panel h2,.panel h3{color:var(--navy);margin-top:0}.back{background:none;border:0;color:var(--blue);padding:7px 0;font-weight:bold}.badge{display:inline-block;background:var(--sky);color:var(--navy);padding:6px 10px;border-radius:999px;font-size:.83rem;font-weight:bold}.prayer{white-space:pre-line;line-height:1.7}.mystery-list{display:grid;gap:10px;margin-top:15px}.mystery{border:1px solid #dce6f0;border-radius:15px;padding:14px;background:#fbfdff}.mystery strong{color:var(--navy)}
-    .beads{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:18px 0}.bead{width:31px;height:31px;border-radius:50%;border:2px solid var(--gold);background:#fff8e7;color:var(--navy);font-size:.8rem}.bead.done{background:var(--gold);color:white}.progress{text-align:center;color:var(--muted);font-weight:bold}
-    textarea,input{width:100%;border:1px solid #ccd8e5;border-radius:13px;padding:12px;background:#fff;font-size:16px}textarea{min-height:125px;resize:vertical}.actions{display:flex;gap:10px;flex-wrap:wrap}.secondary{border:1px solid var(--blue);background:white;color:var(--blue);border-radius:999px;padding:10px 16px;font-weight:bold}.saved-list{padding:0;list-style:none}.saved-list li{background:#f7faff;border-radius:13px;padding:12px;margin:8px 0;line-height:1.4}.small{font-size:.82rem;color:var(--muted)}
-    .candle-wrap{text-align:center;padding:12px}.candle{font-size:6rem;filter:grayscale(1);opacity:.5;transition:.5s}.candle.lit{filter:none;opacity:1;text-shadow:0 0 25px #f0b73f;animation:glow 2s infinite alternate}@keyframes glow{to{text-shadow:0 0 42px #ffcf66}}.candle-message{min-height:28px;color:var(--navy);font-style:italic}
-    .saint{border-left:4px solid var(--gold)}.saint h3{margin-bottom:3px}.quote{font-style:italic;color:var(--blue);line-height:1.55}
-    nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.96);border-top:1px solid #dfe7ef;padding:8px 4px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(14px);z-index:5}nav button{border:0;background:none;color:var(--muted);font-size:.72rem;padding:5px 2px}nav button span{display:block;font-size:1.3rem;margin-bottom:2px}nav button.active{color:var(--navy);font-weight:bold}
-    .drive-mode{display:grid;gap:10px}.mode-btn{border:1px solid #ccd8e5;background:white;border-radius:15px;padding:14px;text-align:left}.mode-btn.active{border:2px solid var(--gold);background:#fff8e7}.voice-status{background:#eef6ff;border-radius:14px;padding:14px;min-height:52px;line-height:1.45}.drive-controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.drive-controls button{margin:0}.now-praying{font-size:1.12rem;line-height:1.6;color:var(--navy)}.notice{background:#fff5d9;border:1px solid #f0d48a;color:#66501a;padding:12px;border-radius:13px;line-height:1.4}.footer-note{text-align:center;color:var(--muted);font-size:.82rem;padding:22px}
-    @media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.hero{padding:36px}.wide{grid-column:auto}}
-
-    .welcome{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#7999ba 0%,#d8e8f3 31%,#f7dfae 63%,#806d52 100%);transition:opacity .8s ease,visibility .8s ease;overflow:hidden}.welcome.hidden{opacity:0;visibility:hidden;pointer-events:none}.welcome:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 13%,rgba(255,247,201,.95),rgba(255,240,183,.2) 22%,transparent 42%)}.welcome-path{position:absolute;left:50%;bottom:-14%;width:58%;height:72%;transform:translateX(-50%);background:linear-gradient(90deg,transparent 0,rgba(255,237,195,.65) 18%,rgba(255,249,225,.95) 50%,rgba(255,237,195,.65) 82%,transparent 100%);clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);filter:blur(.2px)}.welcome-mary{position:absolute;top:5.5%;left:50%;transform:translateX(-50%);width:min(72vw,330px);height:min(62vh,520px);object-fit:cover;object-position:center 34%;border-radius:34px;box-shadow:0 18px 42px rgba(24,66,111,.28);border:2px solid rgba(255,218,118,.85);filter:saturate(1.05) contrast(1.02)}.welcome-content{position:absolute;left:18px;right:18px;bottom:max(28px,env(safe-area-inset-bottom));text-align:center;color:#17365d;max-width:480px;margin:auto;padding:14px 14px 10px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.90),rgba(255,248,227,.94));box-shadow:0 12px 30px rgba(24,66,111,.16);backdrop-filter:blur(8px)}.welcome-content h1{font-size:2.45rem;margin:0;text-shadow:0 2px 12px rgba(255,255,255,.9)}.welcome-content p{font-size:1.08rem;line-height:1.55;font-style:italic;margin:12px auto 18px}.welcome .primary{font-size:1.05rem;padding:15px 25px}.entering .welcome-mary{animation:approach 1.5s ease forwards}.entering .welcome-path{animation:pathmove 1.5s ease forwards}@keyframes approach{to{transform:translateX(-50%) scale(1.05);top:4.5%}}@keyframes pathmove{to{width:82%;height:88%}}
-    .daily-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.mini-card{background:rgba(255,255,255,.88);border:1px solid rgba(201,154,60,.35);border-radius:18px;padding:15px;box-shadow:0 8px 22px rgba(23,54,93,.08)}.mini-card strong{color:var(--navy);display:block;margin-bottom:5px}.mini-card p{margin:0;color:var(--muted);font-size:.86rem;line-height:1.4}.journal-entry{background:#fbfdff;border:1px solid #dce6f0;border-radius:14px;padding:13px;margin:9px 0}.journal-entry time{display:block;color:var(--muted);font-size:.78rem;margin-bottom:5px}.screen-title{display:flex;align-items:center;gap:10px}.screen-title .icon{margin:0}.install-note{background:linear-gradient(135deg,#edf6ff,#fff8e7);border:1px solid rgba(201,154,60,.45)}
-    @media(max-width:430px){.daily-strip{grid-template-columns:1fr}.welcome-content h1{font-size:2.15rem}.welcome-mary{width:78vw;height:59vh;top:5%}.welcome-content{bottom:max(18px,env(safe-area-inset-bottom));padding:12px}.welcome-content p{margin:8px auto 12px}}
-
-    /* v0.8 Living Colours — brighter Marian palette, visual-only upgrade */
-    :root{
-      --navy:#123f7a;--blue:#246fc2;--sky:#dff3ff;--gold:#e2aa2f;--cream:#fff8e7;
-      --ink:#17324f;--muted:#60758b;--card:#ffffff;
-      --rose:#e98aa2;--aqua:#68c7d8;--lavender:#aa96d8;--sun:#ffd36a;
-      --shadow:0 14px 34px rgba(27,85,145,.15)
-    }
-    body{background:
-      radial-gradient(circle at 12% 7%,rgba(255,211,106,.24),transparent 25%),
-      radial-gradient(circle at 88% 20%,rgba(104,199,216,.20),transparent 26%),
-      linear-gradient(180deg,#e2f4ff 0%,#fff9ea 45%,#fff0f3 100%)}
-    header{background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(255,255,255,0));}
-    .brand{color:#124a91;text-shadow:0 2px 12px rgba(36,111,194,.10)}
-    .tagline{color:#cc8d16;font-weight:bold}
-    .hero{background:linear-gradient(135deg,#114f98 0%,#2878c9 52%,#54b6cf 100%);box-shadow:0 18px 42px rgba(26,91,158,.24)}
-    .hero:before{content:'';position:absolute;inset:-40% -20% auto auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,219,126,.30),transparent 67%)}
-    .verse{color:#fff0b8}.primary{background:linear-gradient(135deg,#ffd76f,#e3a62c);color:#153757;box-shadow:0 8px 20px rgba(200,139,24,.28)}
-    .primary:hover{filter:brightness(1.04)}
-    .section-title{color:#154f96}
-    .card{border-color:rgba(50,128,190,.24);box-shadow:0 12px 28px rgba(31,94,153,.11)}
-    .grid>.card:before{background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(226,244,255,.62))}
-    .grid>.card:after{background:radial-gradient(circle,rgba(255,204,92,.30),rgba(255,204,92,0) 72%)}
-    .grid>.card:nth-child(3n+1){border-color:rgba(36,111,194,.30)}
-    .grid>.card:nth-child(3n+2){border-color:rgba(233,138,162,.34)}
-    .grid>.card:nth-child(3n){border-color:rgba(104,199,216,.38)}
-    .grid>.card:nth-child(3n+1) .icon{background:linear-gradient(145deg,#e8f6ff,#bfe3ff);border-color:rgba(36,111,194,.28);box-shadow:0 7px 16px rgba(36,111,194,.16)}
-    .grid>.card:nth-child(3n+2) .icon{background:linear-gradient(145deg,#fff0f4,#f7c9d5);border-color:rgba(233,138,162,.35);box-shadow:0 7px 16px rgba(233,138,162,.16)}
-    .grid>.card:nth-child(3n) .icon{background:linear-gradient(145deg,#ecfbff,#c5edf2);border-color:rgba(104,199,216,.40);box-shadow:0 7px 16px rgba(104,199,216,.18)}
-    .grid>.card.wide{background:linear-gradient(135deg,#0f4c91 0%,#1e72bd 50%,#7e6fc1 100%);border-color:rgba(255,215,111,.76);box-shadow:0 16px 38px rgba(31,85,151,.24)}
-    .grid>.card.wide .icon{background:linear-gradient(145deg,#ffe39a,#e2aa2f)}
-    .panel{background:rgba(255,255,255,.94);border:1px solid rgba(72,145,193,.15);box-shadow:0 12px 30px rgba(38,99,151,.10)}
-    .badge{background:linear-gradient(135deg,#dff3ff,#f1eaff);color:#164e91}
-    .mystery{border-color:#cee6f5;background:linear-gradient(135deg,#fbfeff,#f5faff)}
-    .bead{border-color:#e1aa32;background:#fff6d8}.bead.done{background:linear-gradient(135deg,#f3bd43,#d59618)}
-    .secondary{border-color:#2877bd;color:#1d68ae;background:#fff}
-    .saved-list li,.journal-entry{background:linear-gradient(135deg,#f6fbff,#fff9f0);border-color:#d7e9f3}
-    .saint{border-left-color:#e2aa2f}.quote{color:#276cad}
-    .mode-btn.active{border-color:#e2aa2f;background:linear-gradient(135deg,#fff7d8,#fff0ec)}
-    .voice-status{background:linear-gradient(135deg,#e8f6ff,#f3ecff)}
-    .notice{background:linear-gradient(135deg,#fff6d9,#ffeef2);border-color:#efd18a}
-    nav{background:rgba(255,255,255,.94);border-top-color:#cfe2ef;box-shadow:0 -8px 28px rgba(34,91,145,.08)}nav button.active{color:#175da8}
-    .welcome{background:linear-gradient(180deg,#62a8e4 0%,#bfe7f5 30%,#ffe3a0 61%,#d7aa83 100%)}
-    .welcome:before{background:radial-gradient(circle at 50% 12%,rgba(255,247,190,1),rgba(255,220,112,.40) 24%,transparent 45%)}
-    .welcome-path{background:linear-gradient(90deg,transparent 0,rgba(255,222,151,.72) 18%,rgba(255,253,225,1) 50%,rgba(255,222,151,.72) 82%,transparent 100%)}
-    .welcome-content{color:#123f7a}.welcome-content h1{text-shadow:0 2px 14px rgba(255,255,255,.96);color:#114c91}
-    .mini-card{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,248,255,.88));border-color:rgba(226,170,47,.35)}
-    .install-note{background:linear-gradient(135deg,#e5f5ff,#fff5d8 55%,#ffeef3)}
-    @media(max-width:430px){.hero{border-radius:22px}.grid{gap:12px}.card{padding:16px}}
-
-    /* v0.10 Complete Rosary Experience */
-    .mystery{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-    .mystery:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(31,94,153,.10)}
-    .guided-card{text-align:center}
-    .guided-prayer-name{font-size:1.35rem;color:var(--navy);font-weight:bold;margin:10px 0 8px}
-    .guided-prayer-text{white-space:pre-line;line-height:1.75;font-size:1.03rem;text-align:left;background:linear-gradient(135deg,#fbfeff,#fff9ef);border:1px solid #d9e8f2;border-radius:16px;padding:16px;margin:14px 0}
-    .guided-mystery{font-size:1.05rem;color:#1b5ea6;font-weight:bold;margin:8px 0}
-    .guided-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
-    .guided-controls button{margin:0}
-    .guided-progress-bar{height:10px;background:#e7eef5;border-radius:999px;overflow:hidden;margin:12px 0}
-    .guided-progress-fill{height:100%;background:linear-gradient(90deg,#e2aa2f,#68c7d8);width:0%;transition:width .25s ease}
-    .hail-count{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:12px 0}
-    .hail-dot{width:18px;height:18px;border-radius:50%;border:2px solid #e2aa2f;background:#fff7da}
-    .hail-dot.done{background:#e2aa2f}
-
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1c5ca8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Road to Mary">
+<title>Road to Mary v0.11</title>
+<style>
+:root{--blue:#1d62ad;--navy:#173d72;--gold:#d7a438;--cream:#fff9ec;--ink:#17314d;--muted:#677b91;--rose:#ef9fb2;--sky:#e8f5ff;--card:#fff;--shadow:0 14px 34px rgba(25,75,132,.15)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:linear-gradient(180deg,#e6f5ff,#fff9e9 48%,#fff0f4);min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}.app{max-width:760px;margin:auto;padding:env(safe-area-inset-top) 0 calc(90px + env(safe-area-inset-bottom));min-height:100vh}header{text-align:center;padding:19px 18px 12px}.brand{font-size:1.8rem;font-weight:bold;color:var(--navy)}.tagline{color:#b77a11;font-style:italic;margin-top:3px}.date{font-size:.88rem;color:var(--muted);margin-top:6px}main{padding:0 15px}.screen{display:none}.screen.active{display:block}.hero{background:linear-gradient(135deg,#104f98,#2f83d0 56%,#65c7d8);color:white;padding:25px 21px;border-radius:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 8px}.hero p{line-height:1.5}.verse{font-style:italic;color:#ffedbd}.primary,.secondary{border-radius:999px;padding:12px 17px;font-weight:bold}.primary{border:0;background:var(--gold);color:#18304d}.secondary{border:1px solid var(--blue);background:white;color:var(--blue)}.section-title{font-size:1.25rem;color:var(--navy);margin:24px 3px 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card,.mini-card,.panel{background:rgba(255,255,255,.94);border:1px solid rgba(215,164,56,.35);box-shadow:var(--shadow)}.card{border-radius:21px;padding:16px;text-align:left;color:inherit;min-height:128px}.card .icon{font-size:1.6rem;margin-bottom:8px}.card h3{margin:0 0 5px;color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.38}.card.wide{grid-column:1/-1;background:linear-gradient(135deg,#163f76,#276eb0);color:white;border-color:#dfbc6e}.card.wide h3,.card.wide p{color:white}.daily-strip{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:13px}.mini-card{border-radius:17px;padding:14px;text-align:left}.mini-card strong{color:var(--navy);display:block;margin-bottom:4px}.mini-card p{margin:0;color:var(--muted);font-size:.85rem}.panel{border-radius:20px;padding:18px;margin:11px 0}.panel h2,.panel h3{color:var(--navy);margin-top:0}.back{border:0;background:none;color:var(--blue);font-weight:bold;padding:7px 0}.actions{display:flex;gap:9px;flex-wrap:wrap}.small{font-size:.82rem;color:var(--muted);line-height:1.4}.prayer{white-space:pre-line;line-height:1.72}.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.support-btn{border:1px solid #d8e6f2;background:linear-gradient(145deg,#fff,#f5fbff);border-radius:16px;padding:14px;text-align:left;color:var(--navy);font-weight:bold}.support-btn span{font-size:1.3rem;margin-right:5px}.support-reading{background:linear-gradient(135deg,#f8fcff,#fff8e7);border:1px solid #dce9f2;border-radius:16px;padding:15px;margin-top:12px}.support-reading blockquote{margin:10px 0;color:var(--blue);font-style:italic}.home-fab{position:fixed;right:max(14px,calc((100vw - 760px)/2 + 14px));bottom:calc(82px + env(safe-area-inset-bottom));width:48px;height:48px;border-radius:50%;border:0;background:var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.18);z-index:9;font-size:1.25rem}.welcome{position:fixed;inset:0;z-index:60;background:linear-gradient(180deg,#93bada,#e7f1f7 35%,#f8dfa7 68%,#8d7658);overflow:hidden}.welcome:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 12%,rgba(255,250,212,.98),rgba(255,244,190,.25) 24%,transparent 45%)}.welcome.hidden{display:none}.welcome img{position:absolute;top:4.5%;left:50%;transform:translateX(-50%);width:min(80vw,360px);height:min(63vh,550px);object-fit:cover;object-position:center 34%;border-radius:32px;border:2px solid #f3d37c;box-shadow:0 18px 44px rgba(22,65,110,.28)}.welcome-card{position:absolute;left:16px;right:16px;bottom:max(20px,env(safe-area-inset-bottom));max-width:500px;margin:auto;text-align:center;background:rgba(255,252,239,.94);padding:14px;border-radius:24px;box-shadow:0 12px 30px rgba(22,65,110,.18)}.welcome-card h1{margin:2px 0;color:var(--navy);font-size:2.2rem}.welcome-card p{margin:8px 0 12px;font-style:italic;line-height:1.45}.notice{background:#fff5d8;border:1px solid #eccd77;border-radius:14px;padding:13px;line-height:1.45;color:#644d18}.audio-box{background:linear-gradient(135deg,#e8f5ff,#fff8e6);border:1px solid #d4e5ef;border-radius:17px;padding:14px;margin-top:12px}.audio-box audio{width:100%;margin-top:10px}.resume{background:#eff8ff;border:1px solid #cfe3f5;border-radius:14px;padding:12px;margin:12px 0}.saved-list{list-style:none;padding:0}.saved-list li{background:#f7fbff;padding:11px;border-radius:12px;margin:7px 0}textarea,input{width:100%;padding:11px;border-radius:12px;border:1px solid #cfdce8;font-size:16px}textarea{min-height:110px}.mystery{border:1px solid #d9e6f0;border-radius:14px;padding:12px;margin:8px 0;background:#fbfdff}.mystery strong{color:var(--navy)}nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(760px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.96);border-top:1px solid #dce7ef;padding:7px 3px calc(7px + env(safe-area-inset-bottom));z-index:8}nav button{border:0;background:none;color:var(--muted);font-size:.7rem;padding:4px 2px}nav span{display:block;font-size:1.25rem}nav button.active{color:var(--navy);font-weight:bold}@media(min-width:600px){.grid{grid-template-columns:repeat(3,1fr)}.card.wide{grid-column:auto}}@media(max-width:430px){.daily-strip{grid-template-columns:1fr}.support-grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-<div class="welcome" id="welcomeScreen" aria-label="Road to Mary welcome">
-  <div class="welcome-path"></div><img class="welcome-mary" src="mary-rosary-12-stars.png" alt="Mary holding a rosary with twelve stars around her head">
-  <div class="welcome-content"><div style="font-size:2rem">🌹</div><h1>Road to Mary</h1><p>“Every journey to Jesus begins with one prayer.”</p><button class="primary" onclick="enterChapel()">Begin Your Journey</button><div class="small" style="margin-top:12px;color:#334e69">To Jesus through Mary</div></div>
-</div>
-
+<div class="welcome" id="welcomeScreen"><img src="mary-rosary-12-stars.png" alt="Mary holding a rosary with twelve stars"><div class="welcome-card"><div style="font-size:1.9rem">🌹</div><h1>Road to Mary</h1><p>“Every journey to Jesus begins with one prayer.”</p><button class="primary" onclick="enterApp()">Begin Your Journey</button><div class="small" style="margin-top:9px">To Jesus through Mary</div></div></div>
 <div class="app">
 <header><div class="brand">🌹 Road to Mary</div><div class="tagline">To Jesus through Mary</div><div class="date" id="todayDate"></div></header>
 <main>
-  <section id="home" class="screen active">
-    <div class="hero"><h1 id="greeting">Welcome Home</h1><p>A quiet place for prayer, Scripture and hope.</p><p class="verse" id="heroVerse">“Peace I leave with you; my peace I give to you.” — John 14:27</p><button class="primary" onclick="openScreen('rosary')">Pray Today’s Rosary</button></div>
-    <div class="daily-strip"><button class="mini-card" onclick="openScreen('gospel')"><strong>✝️ Today’s Gospel</strong><p id="gospelPreview">A short reading and reflection for today.</p></button><button class="mini-card" onclick="openScreen('journal')"><strong>📝 My Prayer Journal</strong><p>Your private reflections, saved on this device.</p></button></div>
-    <h2 class="section-title">The Chapel</h2>
-    <div class="grid">
-      <button class="card" onclick="openScreen('rosary')"><div class="icon">📿</div><h3>Rosary</h3><p id="todayMysteryCard">Today’s mysteries</p></button>
-      <button class="card" onclick="openScreen('scripture')"><div class="icon">📖</div><h3>Scripture</h3><p>Verse and reflection for today</p></button>
-      <button class="card" onclick="openScreen('intentions')"><div class="icon">❤️</div><h3>Intentions</h3><p>Keep private prayers on this device</p></button>
-      <button class="card" onclick="openScreen('candle')"><div class="icon">🕯️</div><h3>Light a Candle</h3><p>Pause and offer a prayer</p></button>
-      <button class="card" onclick="openScreen('saints')"><div class="icon">👼</div><h3>Saints</h3><p>Maronite saints and prayers</p></button>
-      <button class="card" onclick="openScreen('library')"><div class="icon">🙏</div><h3>Prayer Library</h3><p>Traditional Catholic prayers</p></button>
-      <button class="card" onclick="openScreen('gospel')"><div class="icon">✝️</div><h3>Daily Gospel</h3><p>Read, reflect and live the Word</p></button>
-      <button class="card" onclick="openScreen('journal')"><div class="icon">📝</div><h3>My Journal</h3><p>Private prayer reflections</p></button>
-      <button class="card wide" onclick="openScreen('driving')"><div class="icon">🚗📿</div><h3>Driving Rosary</h3><p>Hands-free listening, praying along, or spoken responses</p></button>
-    </div>
-    <div class="panel"><span class="badge">Today’s Invitation</span><h3 style="margin-top:12px">Take one quiet step</h3><p id="invitationText">Pray one decade for someone who needs hope.</p></div>
-  </section>
-
-  <section id="rosary" class="screen">
-    <button class="back" onclick="openScreen('home')">← Back to Chapel</button>
-    <div class="panel"><span class="badge" id="rosaryDay"></span><h2 id="rosaryTitle">Today’s Rosary</h2><p id="rosaryIntro"></p><div id="mysteries" class="mystery-list"></div><div class="actions" style="margin-top:14px"><button class="primary" onclick="startGuidedRosary(0)">Start Guided Rosary</button><button class="secondary" onclick="openScreen('driving')">Open Driving Rosary</button></div></div>
-    <div class="panel"><h3>One Decade Prayer Counter</h3><p class="small">Tap each bead as you pray a Hail Mary. Progress stays on this device.</p><div class="beads" id="beads"></div><div class="progress" id="beadProgress">0 of 10</div><div class="actions" style="margin-top:14px"><button class="secondary" onclick="resetBeads()">Reset decade</button></div></div>
-  </section>
-
-
-  <section id="guided" class="screen">
-    <button class="back" onclick="openScreen('rosary')">← Back to Rosary</button>
-    <div class="panel guided-card">
-      <span class="badge">Guided Rosary</span>
-      <h2 id="guidedTitle">Today’s Rosary</h2>
-      <div class="guided-mystery" id="guidedMystery"></div>
-      <div class="progress" id="guidedProgress">Ready to begin</div>
-      <div class="guided-progress-bar"><div class="guided-progress-fill" id="guidedProgressFill"></div></div>
-      <div class="guided-prayer-name" id="guidedPrayerName"></div>
-      <div class="hail-count" id="guidedHailDots"></div>
-      <div class="guided-prayer-text" id="guidedPrayerText"></div>
-      <div class="guided-controls">
-        <button class="secondary" onclick="previousGuidedStep()">← Previous</button>
-        <button class="primary" id="guidedSpeakButton" onclick="speakGuidedStep()">🔊 Listen</button>
-        <button class="secondary" onclick="nextGuidedStep()">Next →</button>
-      </div>
-      <div class="actions" style="justify-content:center;margin-top:12px">
-        <button class="secondary" onclick="repeatGuidedStep()">Repeat</button>
-        <button class="secondary" onclick="pauseGuidedAudio()">Pause Audio</button>
-        <button class="secondary" onclick="restartGuidedRosary()">Start Again</button>
-      </div>
-      <p class="small" style="margin-top:14px">Your place is saved automatically on this device.</p>
-    </div>
-  </section>
-
-  <section id="driving" class="screen">
-    <button class="back" onclick="openScreen('rosary')">← Back to Rosary</button>
-    <div class="panel"><span class="badge">Hands-Free Prayer</span><h2>Driving Rosary</h2><p>Choose how you would like to pray. Set your mode before driving and keep your attention on the road.</p><div class="notice"><strong>Safety:</strong> Never handle or look at your phone while driving. Begin, pause, or change settings only when safely parked, or use supported voice commands.</div></div>
-    <div class="panel"><h3>Choose a Mode</h3><div class="drive-mode">
-      <button class="mode-btn active" data-mode="listen" onclick="setDriveMode('listen')"><strong>🔊 Listen</strong><br><span class="small">The app says every prayer while you listen.</span></button>
-      <button class="mode-btn" data-mode="along" onclick="setDriveMode('along')"><strong>🙏 Pray Along</strong><br><span class="small">The app speaks slowly so you can pray together.</span></button>
-      <button class="mode-btn" data-mode="respond" onclick="setDriveMode('respond')"><strong>🎙️ Respond</strong><br><span class="small">The app leads and pauses for your spoken response.</span></button>
-    </div></div>
-    <div class="panel"><h3 id="driveMysteryTitle">Today's Rosary</h3><p class="now-praying" id="drivePrayerText">Ready to begin.</p><div class="progress" id="driveProgress">Mystery 1 · Step 1</div><div class="voice-status" id="voiceStatus">Voice control is ready when supported by your browser.</div><div class="drive-controls" style="margin-top:14px"><button class="primary" onclick="startDrivingRosary()">Start / Resume</button><button class="secondary" onclick="pauseDrivingRosary()">Pause</button><button class="secondary" onclick="repeatDriveStep()">Repeat</button><button class="secondary" onclick="nextDriveStep()">Next</button></div><div class="actions" style="margin-top:12px"><button class="secondary" onclick="toggleVoiceCommands()" id="voiceButton">Enable Voice Commands</button><button class="secondary" onclick="resetDrivingRosary()">Start Again</button></div><p class="small">Supported commands: “start”, “pause”, “continue”, “next”, “repeat”, and “stop”. Progress is saved on this device.</p></div>
-  </section>
-
-  <section id="scripture" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><span class="badge">Daily Scripture</span><h2 id="scriptureTitle"></h2><p class="quote" id="scriptureVerse"></p><h3>Reflection</h3><p id="scriptureReflection" class="prayer"></p></div><div class="notice">This early version contains a rotating selection of Scripture. A future version will connect to the Church’s daily readings.</div></section>
-
-  <section id="intentions" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><h2>Private Prayer Intentions</h2><p>Write what is on your heart. It is stored only in this browser on this device.</p><textarea id="intentionInput" placeholder="Lord, please hear my prayer for..."></textarea><div class="actions" style="margin-top:12px"><button class="primary" onclick="saveIntention()">Save Intention</button><button class="secondary" onclick="clearIntentions()">Clear All</button></div></div><div class="panel"><h3>My Intentions</h3><ul id="intentionList" class="saved-list"></ul></div></section>
-
-  <section id="candle" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel candle-wrap"><h2>Light a Candle</h2><p>Take a breath, remember your intention, and tap the candle.</p><button aria-label="Light candle" style="border:0;background:none" onclick="toggleCandle()"><div class="candle" id="candleIcon">🕯️</div></button><p class="candle-message" id="candleMessage"></p></div></section>
-
-  <section id="saints" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><h2>Maronite Saints</h2><p>Faithful witnesses who point us toward Christ.</p></div><div id="saintCards"></div></section>
-
-  <section id="library" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><h2>Prayer Library</h2><p>Select a prayer to read.</p></div><div id="prayerCards"></div></section>
-
-  <section id="gospel" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><span class="badge">Today’s Gospel</span><h2 id="gospelTitle"></h2><p class="quote" id="gospelReading"></p><h3>Reflection</h3><p id="gospelReflection" class="prayer"></p><h3>How can I live this today?</h3><p id="gospelAction"></p></div><div class="notice">This preview uses a rotating Gospel selection. A later version will connect to the official daily Catholic readings.</div></section>
-
-  <section id="journal" class="screen"><button class="back" onclick="openScreen('home')">← Back to Chapel</button><div class="panel"><div class="screen-title"><div class="icon">📝</div><div><h2 style="margin:0">My Prayer Journal</h2><p class="small" style="margin:4px 0 0">Private and stored only on this device.</p></div></div><textarea id="journalInput" placeholder="Jesus, today I want to thank You for..." style="margin-top:16px"></textarea><div class="actions" style="margin-top:12px"><button class="primary" onclick="saveJournalEntry()">Save Reflection</button><button class="secondary" onclick="clearJournal()">Clear Journal</button></div></div><div class="panel"><h3>My Reflections</h3><div id="journalList"></div></div></section>
+<section id="home" class="screen active"><div class="hero"><h1 id="greeting">Welcome Home</h1><p>A quiet place for prayer, Scripture and hope.</p><p class="verse">“Peace I leave with you; my peace I give to you.” — John 14:27</p><button class="primary" onclick="openScreen('rosary')">Pray Today’s Rosary</button></div><div id="resumeCard" class="resume" style="display:none"></div><div class="daily-strip"><button class="mini-card" onclick="openScreen('support')"><strong>🤍 When You Need Help</strong><p>Prayer for grief, stress, sickness, finances and more.</p></button><button class="mini-card" onclick="openScreen('journal')"><strong>📝 My Prayer Journal</strong><p>Private reflections saved on this device.</p></button></div><h2 class="section-title">The Chapel</h2><div class="grid"><button class="card" onclick="openScreen('rosary')"><div class="icon">📿</div><h3>Rosary</h3><p>Today’s mysteries and guided prayer.</p></button><button class="card" onclick="openScreen('support')"><div class="icon">🤍</div><h3>When You Need Help</h3><p>Turn here when life feels heavy.</p></button><button class="card" onclick="openScreen('scripture')"><div class="icon">📖</div><h3>Scripture</h3><p>Verses for peace, courage and hope.</p></button><button class="card" onclick="openScreen('intentions')"><div class="icon">❤️</div><h3>Intentions</h3><p>Keep private prayer intentions.</p></button><button class="card" onclick="openScreen('saints')"><div class="icon">👼</div><h3>Saints</h3><p>Mary, St Charbel, St Rafqa and more.</p></button><button class="card" onclick="openScreen('library')"><div class="icon">🙏</div><h3>Prayer Library</h3><p>Traditional Catholic prayers.</p></button><button class="card wide" onclick="openScreen('driving')"><div class="icon">🚗📿</div><h3>Driving Rosary</h3><p>Locked-screen audio so the phone can stay untouched while driving.</p></button></div></section>
+<section id="support" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>🤍 When You Need Help</h2><p>You do not need perfect words. Choose what you are carrying today and begin there.</p><div class="support-grid" id="supportGrid"></div></div><div class="panel" id="supportDetail" style="display:none"><div id="supportContent"></div><div class="actions"><button class="secondary" onclick="speakSupport()">🔊 Listen</button><button class="secondary" onclick="document.getElementById('supportDetail').style.display='none'">Choose Another</button></div></div></section>
+<section id="rosary" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2 id="rosaryTitle">Today’s Rosary</h2><p id="rosaryIntro"></p><div id="mysteries"></div><div class="actions"><button class="primary" onclick="openScreen('driving')">Start Hands-Free Rosary</button></div></div></section>
+<section id="driving" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>🚗 Driving Rosary</h2><div class="notice"><strong>Before driving:</strong> choose the Rosary and press Play while safely parked. This version uses normal media audio so iPhone can keep playing when the screen locks. Do not operate the phone while driving.</div><div class="audio-box"><strong id="driveTitle">Today’s Mysteries</strong><p class="small">The audio player should remain available on the iPhone lock screen.</p><audio id="driveAudio" controls preload="metadata"></audio><div class="actions" style="margin-top:10px"><button class="secondary" onclick="setAudioForToday()">Today’s Rosary</button><button class="secondary" onclick="resetDriveAudio()">Start Again</button></div></div><div class="panel" style="box-shadow:none;border:1px solid #dbe7ef"><h3>Choose Mysteries</h3><div class="actions"><button class="secondary" onclick="setDriveAudio('joyful')">Joyful</button><button class="secondary" onclick="setDriveAudio('luminous')">Luminous</button><button class="secondary" onclick="setDriveAudio('sorrowful')">Sorrowful</button><button class="secondary" onclick="setDriveAudio('glorious')">Glorious</button></div></div></div></section>
+<section id="scripture" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>📖 Scripture for Today</h2><blockquote class="verse" style="color:var(--blue)">“Come to me, all you who labor and are burdened, and I will give you rest.” — Matthew 11:28</blockquote><p>Bring God the day as it really is. You do not need to hide the pressure, fear or tiredness. Prayer can begin with one honest sentence.</p></div></section>
+<section id="intentions" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>❤️ My Intentions</h2><textarea id="intentionInput" placeholder="Write a private prayer intention..."></textarea><div class="actions" style="margin-top:9px"><button class="primary" onclick="saveIntention()">Save Intention</button></div><ul class="saved-list" id="intentionsList"></ul></div></section>
+<section id="saints" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>👼 Saints & Intercession</h2><div class="mystery"><strong>Blessed Virgin Mary</strong><p>Mother Mary, lead me gently to Jesus and stay close to me in every difficulty.</p></div><div class="mystery"><strong>St Charbel</strong><p>St Charbel, pray for the sick, the suffering and all who place their trust in God.</p></div><div class="mystery"><strong>St Rafqa</strong><p>St Rafqa, help us carry our crosses with patience, tenderness and hope.</p></div><div class="mystery"><strong>St Nimatullah Al-Hardini</strong><p>Guide us toward wisdom, humility and faithful service.</p></div></div></section>
+<section id="library" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>🙏 Prayer Library</h2><div class="mystery"><strong>Our Father</strong><p class="prayer">Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven. Give us this day our daily bread; and forgive us our trespasses, as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</p></div><div class="mystery"><strong>Hail Mary</strong><p class="prayer">Hail Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p></div><div class="mystery"><strong>Memorare</strong><p class="prayer">Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother. Amen.</p></div></div></section>
+<section id="journal" class="screen"><button class="back" onclick="openScreen('home')">← Back Home</button><div class="panel"><h2>📝 My Prayer Journal</h2><textarea id="journalInput" placeholder="What is on your heart today?"></textarea><div class="actions" style="margin-top:9px"><button class="primary" onclick="saveJournal()">Save Reflection</button></div><ul class="saved-list" id="journalList"></ul></div></section>
 </main>
-<div class="footer-note">Road to Mary · Complete Rosary Version 0.10</div>
-<nav>
-  <button data-screen="home" class="active" onclick="openScreen('home')"><span>🏠</span>Home</button>
-  <button data-screen="rosary" onclick="openScreen('rosary')"><span>📿</span>Rosary</button>
-  <button data-screen="scripture" onclick="openScreen('scripture')"><span>📖</span>Scripture</button>
-  <button data-screen="saints" onclick="openScreen('saints')"><span>👼</span>Saints</button>
-  <button data-screen="library" onclick="openScreen('library')"><span>🙏</span>Prayers</button>
-</nav>
+<button class="home-fab" aria-label="Home" onclick="openScreen('home')">🏠</button>
+<nav><button data-screen="home" class="active" onclick="openScreen('home')"><span>🏠</span>Home</button><button data-screen="rosary" onclick="openScreen('rosary')"><span>📿</span>Rosary</button><button data-screen="support" onclick="openScreen('support')"><span>🤍</span>Help</button><button data-screen="driving" onclick="openScreen('driving')"><span>🚗</span>Drive</button><button data-screen="library" onclick="openScreen('library')"><span>🙏</span>Prayers</button></nav>
 </div>
 <script>
-const mysteriesByDay={0:['Glorious Mysteries',['The Resurrection','The Ascension','The Descent of the Holy Spirit','The Assumption of Mary','The Coronation of Mary']],1:['Joyful Mysteries',['The Annunciation','The Visitation','The Nativity','The Presentation','The Finding of Jesus in the Temple']],2:['Sorrowful Mysteries',['The Agony in the Garden','The Scourging at the Pillar','The Crowning with Thorns','The Carrying of the Cross','The Crucifixion']],3:['Glorious Mysteries',['The Resurrection','The Ascension','The Descent of the Holy Spirit','The Assumption of Mary','The Coronation of Mary']],4:['Luminous Mysteries',['The Baptism of Jesus','The Wedding at Cana','The Proclamation of the Kingdom','The Transfiguration','The Institution of the Eucharist']],5:['Sorrowful Mysteries',['The Agony in the Garden','The Scourging at the Pillar','The Crowning with Thorns','The Carrying of the Cross','The Crucifixion']],6:['Joyful Mysteries',['The Annunciation','The Visitation','The Nativity','The Presentation','The Finding of Jesus in the Temple']]};
-const scriptures=[
- ['Matthew 11:28','“Come to me, all you who are weary and burdened, and I will give you rest.”','Jesus does not ask us to arrive strong or certain. He asks us to come. Bring Him today’s burden honestly, and allow prayer to become a place of rest.'],
- ['Luke 1:38','“Behold, I am the handmaid of the Lord. May it be done to me according to your word.”','Mary’s yes was trusting, courageous and open to God. Ask for the grace to say yes to the next faithful step, even before you can see the whole road.'],
- ['John 14:27','“Peace I leave with you; my peace I give to you.”','Christ’s peace is deeper than easy circumstances. Sit quietly for a moment and ask Him to place that peace within your heart and home.'],
- ['Psalm 23:4','“Even though I walk through the darkest valley, I fear no evil, for you are with me.”','Faith does not promise that every road will be easy. It promises that we never walk alone. Remember someone who needs courage and hold them in prayer.'],
- ['Philippians 4:13','“I can do all things through Christ who strengthens me.”','Strength in Christ is not self-reliance. It is the grace to meet today with faith, patience and love. Ask only for the strength needed for this day.']
+const mysteriesByDay={0:['Glorious',['The Resurrection','The Ascension','The Descent of the Holy Spirit','The Assumption of Mary','The Coronation of Mary']],1:['Joyful',['The Annunciation','The Visitation','The Nativity','The Presentation','The Finding of Jesus in the Temple']],2:['Sorrowful',['The Agony in the Garden','The Scourging at the Pillar','The Crowning with Thorns','The Carrying of the Cross','The Crucifixion']],3:['Glorious',['The Resurrection','The Ascension','The Descent of the Holy Spirit','The Assumption of Mary','The Coronation of Mary']],4:['Luminous',['The Baptism of Jesus in the Jordan','The Wedding at Cana','The Proclamation of the Kingdom of God','The Transfiguration','The Institution of the Eucharist']],5:['Sorrowful',['The Agony in the Garden','The Scourging at the Pillar','The Crowning with Thorns','The Carrying of the Cross','The Crucifixion']],6:['Joyful',['The Annunciation','The Visitation','The Nativity','The Presentation','The Finding of Jesus in the Temple']]};
+const supportItems=[
+{key:'grief',icon:'🕊️',title:'Grief & Loss',verse:'“Blessed are those who mourn, for they will be comforted.” — Matthew 5:4',prayer:'Lord Jesus, my heart is hurting and I miss the person I have lost. Stay close to me in this grief. Hold the memories I treasure, give me strength for the difficult moments, and remind me that love is not lost in You. Mary, Mother of Sorrows, stay beside me and lead me gently toward hope. Amen.'},
+{key:'sick',icon:'🌿',title:'Sickness & Healing',verse:'“I am the Lord who heals you.” — Exodus 15:26',prayer:'Lord Jesus, bring Your healing presence to me and to those I love. Give wisdom to doctors and carers, patience through uncertainty, and strength for each day. St Charbel, pray for all who are sick and suffering. Amen.'},
+{key:'finances',icon:'💛',title:'Financial Worries',verse:'“Your heavenly Father knows that you need them.” — Matthew 6:32',prayer:'Father, You know the pressure I am carrying about money and the future. Give me wisdom, restraint, opportunity and courage. Open the right doors, help me make sound decisions, and keep fear from ruling my heart. Provide what is truly needed and teach me to trust You one day at a time. Amen.'},
+{key:'stress',icon:'🌤️',title:'Stress & Pressure',verse:'“Cast all your anxiety on him because he cares for you.” — 1 Peter 5:7',prayer:'Jesus, I give You the things that feel too heavy today. Quiet the racing thoughts, slow me down, and show me the next right step. Help me do what I can and place what I cannot control into Your hands. Amen.'},
+{key:'anxiety',icon:'🤲',title:'Anxiety & Fear',verse:'“Do not be afraid, for I am with you.” — Isaiah 41:10',prayer:'Lord, fear is louder than I want it to be. Stay with me in this moment. Help me breathe, pray, and remember that I am not facing this hour alone. Give me courage for what is real and peace about what has not happened. Amen.'},
+{key:'depression',icon:'🕯️',title:'Depression & Sadness',verse:'“The Lord is close to the brokenhearted.” — Psalm 34:18',prayer:'Jesus, the day feels dark and I do not have many words. Please stay close to me. Give me enough light for the next step, enough strength to reach out to someone I trust, and enough hope to believe that this moment is not the whole story. Mary, sit with me in the silence and lead me toward Your Son. Amen.'},
+{key:'lonely',icon:'🤍',title:'Loneliness',verse:'“I am with you always.” — Matthew 28:20',prayer:'Lord Jesus, meet me in the loneliness I feel. Remind me that I am seen and loved. Lead good people into my life and give me the courage to reach out rather than withdraw. Let Your presence become real to me today. Amen.'},
+{key:'family',icon:'🏡',title:'Family Problems',verse:'“Above all, put on love.” — Colossians 3:14',prayer:'Lord, bring peace into my family. Where there is anger, give patience; where there is misunderstanding, give wisdom; where there is hurt, begin healing. Help me speak with truth and kindness, and show me what I can do to make peace. Amen.'},
+{key:'work',icon:'🧭',title:'Work & Employment',verse:'“Commit your work to the Lord.” — Proverbs 16:3',prayer:'Father, guide me in my work and employment. Give me confidence without pride, patience without giving up, and favour in the right opportunities. Help me work with integrity and trust You with what comes next. Amen.'},
+{key:'unknown',icon:'🙏',title:'I Don’t Know What to Pray',verse:'“The Spirit himself intercedes for us.” — Romans 8:26',prayer:'God, I do not know what to say. You already know what is in my heart. Please receive the worry, pain, confusion and hope that I cannot put into words. Stay with me. Lead me. Give me what I need for today, and help me take one small step toward light. Amen.'}
 ];
-const gospels=[
- ['John 15:9–12','“As the Father has loved me, so I have loved you. Remain in my love.”','Jesus invites us not merely to admire His love, but to remain in it. Prayer gives us a place to return when fear, pressure or disappointment pull us away.','Choose one person today and show them patient, practical love.'],
- ['Luke 10:38–42','“Mary has chosen the better part, and it will not be taken from her.”','There are times to serve and times to sit quietly with the Lord. Even a few undistracted minutes can restore the heart.','Put the phone aside for five minutes and sit silently with Jesus.'],
- ['Matthew 5:14–16','“You are the light of the world.”','Faith becomes visible through kindness, courage and mercy. God can use even a small act of goodness to bring light into another person’s day.','Do one good deed quietly, without seeking recognition.'],
- ['Mark 10:46–52','“Take courage; get up, Jesus is calling you.”','Bartimaeus called out even when others tried to silence him. Jesus hears the honest cry of a person in need.','Name one burden clearly in prayer and ask Jesus for help.'],
- ['John 2:1–11','“Do whatever he tells you.”','At Cana, Mary noticed the need and brought it to Jesus. Her words remain a simple guide for every Christian life.','Ask Mary to help you recognise and follow Jesus today.']
-];
-const saints=[
- {name:'St. Maron',feast:'Feast: 9 February',bio:'A fourth-century hermit and spiritual father whose life of prayer inspired the Maronite Church.',prayer:'St. Maron, teach us to seek Christ with simplicity, courage and perseverance.'},
- {name:'St. Charbel Makhlouf',feast:'Feast: 24 July',bio:'A Lebanese Maronite monk and hermit known throughout the world for holiness, prayer and healing.',prayer:'St. Charbel, pray for the sick, the suffering and all who place their trust in God.'},
- {name:'St. Rafqa',feast:'Feast: 23 March',bio:'A Lebanese Maronite nun who united long years of suffering with the Passion of Christ.',prayer:'St. Rafqa, help us carry our crosses with patience, tenderness and hope.'},
- {name:'St. Nimatullah Al-Hardini',feast:'Feast: 14 December',bio:'A Lebanese Maronite monk, teacher and spiritual guide remembered for prayer, learning and devotion to Mary.',prayer:'St. Nimatullah, guide us toward wisdom, humility and faithful service.'}
-];
-const prayers=[
- {title:'The Our Father',text:'Our Father, who art in heaven,\nhallowed be thy name;\nthy kingdom come;\nthy will be done on earth as it is in heaven.\nGive us this day our daily bread;\nand forgive us our trespasses,\nas we forgive those who trespass against us;\nand lead us not into temptation,\nbut deliver us from evil. Amen.'},
- {title:'The Hail Mary',text:'Hail Mary, full of grace, the Lord is with thee.\nBlessed art thou among women, and blessed is the fruit of thy womb, Jesus.\nHoly Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.'},
- {title:'The Glory Be',text:'Glory be to the Father, and to the Son, and to the Holy Spirit,\nas it was in the beginning, is now, and ever shall be, world without end. Amen.'},
- {title:'The Memorare',text:'Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession was left unaided.\nInspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee do I come; before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen.'},
- {title:'Prayer to St. Michael',text:'Saint Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly hosts, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.'}
-];
+let activeSupport=null;
+function enterApp(){document.getElementById('welcomeScreen').classList.add('hidden');openScreen('home')}
 function openScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'});}
-function setup(){const now=new Date();document.getElementById('todayDate').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});const h=now.getHours();document.getElementById('greeting').textContent=h<12?'Good Morning':h<18?'Good Afternoon':'Good Evening';const day=now.getDay(),data=mysteriesByDay[day];document.getElementById('todayMysteryCard').textContent=data[0];document.getElementById('rosaryDay').textContent=now.toLocaleDateString(undefined,{weekday:'long'});document.getElementById('rosaryTitle').textContent=data[0];document.getElementById('rosaryIntro').textContent='Pause before each mystery, recall the life of Jesus and Mary, and offer your intention.';document.getElementById('mysteries').innerHTML=data[1].map((m,i)=>`<div class="mystery" onclick="startGuidedRosary(${i})"><strong>${i+1}. ${m}</strong><div class="small">Tap to pray · Our Father · 10 Hail Marys · Glory Be · Fatima Prayer</div></div>`).join('');renderBeads();renderIntentions();renderSaints();renderPrayers();const item=scriptures[Math.floor(Date.now()/86400000)%scriptures.length];document.getElementById('scriptureTitle').textContent=item[0];document.getElementById('scriptureVerse').textContent=item[1];document.getElementById('scriptureReflection').textContent=item[2];const invites=['Pray one decade for someone who needs hope.','Call someone who may be lonely today.','Spend five quiet minutes with Jesus.','Offer today’s work for someone who is suffering.','Thank God for one blessing you often overlook.'];document.getElementById('invitationText').textContent=invites[Math.floor(Date.now()/86400000)%invites.length];}
-function renderBeads(){let count=Number(localStorage.getItem('rtmBeads')||0);document.getElementById('beads').innerHTML=Array.from({length:10},(_,i)=>`<button class="bead ${i<count?'done':''}" onclick="setBeads(${i+1})">${i+1}</button>`).join('');document.getElementById('beadProgress').textContent=`${count} of 10`;}
-function setBeads(n){let current=Number(localStorage.getItem('rtmBeads')||0);localStorage.setItem('rtmBeads',n===current?n-1:n);renderBeads();}function resetBeads(){localStorage.setItem('rtmBeads',0);renderBeads();}
-function getIntentions(){try{return JSON.parse(localStorage.getItem('rtmIntentions')||'[]')}catch{return[]}}
-function saveIntention(){const input=document.getElementById('intentionInput'),text=input.value.trim();if(!text)return;const list=getIntentions();list.unshift({text,date:new Date().toLocaleDateString()});localStorage.setItem('rtmIntentions',JSON.stringify(list));input.value='';renderIntentions();}
-function renderIntentions(){const list=getIntentions(),el=document.getElementById('intentionList');el.innerHTML=list.length?list.map(x=>`<li>${escapeHtml(x.text)}<div class="small">Saved ${escapeHtml(x.date)}</div></li>`).join(''):'<li class="small">No intentions saved yet.</li>';}
-function clearIntentions(){if(confirm('Clear all saved prayer intentions?')){localStorage.removeItem('rtmIntentions');renderIntentions();}}
-function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-function toggleCandle(){const icon=document.getElementById('candleIcon'),msg=document.getElementById('candleMessage'),lit=!icon.classList.contains('lit');icon.classList.toggle('lit',lit);msg.textContent=lit?'Lord, receive this prayer and hold this intention close to Your heart.':'';}
-function renderSaints(){document.getElementById('saintCards').innerHTML=saints.map(s=>`<div class="panel saint"><h3>${s.name}</h3><div class="small">${s.feast}</div><p>${s.bio}</p><p class="quote">${s.prayer}</p></div>`).join('');}
-function renderPrayers(){document.getElementById('prayerCards').innerHTML=prayers.map((p,i)=>`<div class="panel"><button class="card" style="box-shadow:none;padding:0;border:0" onclick="togglePrayer(${i})"><h3>${p.title}</h3><p>Tap to open or close</p></button><div id="prayer-${i}" class="prayer" style="display:none;margin-top:14px">${p.text}</div></div>`).join('');}
-function togglePrayer(i){const el=document.getElementById('prayer-'+i);el.style.display=el.style.display==='none'?'block':'none';}
-
-
-const guidedPrayerText={
-  'Sign of the Cross':'In the name of the Father, and of the Son, and of the Holy Spirit. Amen.',
-  'Apostles’ Creed':'I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord; who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.',
-  'Our Father':'Our Father, who art in heaven,\nhallowed be thy name;\nthy kingdom come;\nthy will be done on earth as it is in heaven.\nGive us this day our daily bread;\nand forgive us our trespasses,\nas we forgive those who trespass against us;\nand lead us not into temptation,\nbut deliver us from evil. Amen.',
-  'Hail Mary':'Hail Mary, full of grace, the Lord is with thee.\nBlessed art thou among women, and blessed is the fruit of thy womb, Jesus.\nHoly Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.',
-  'Glory Be':'Glory be to the Father, and to the Son, and to the Holy Spirit,\nas it was in the beginning, is now, and ever shall be, world without end. Amen.',
-  'Fatima Prayer':'O my Jesus, forgive us our sins, save us from the fires of hell, lead all souls to heaven, especially those most in need of your mercy. Amen.',
-  'Hail Holy Queen':'Hail, Holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.',
-  'Closing Prayer':'O God, whose only begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal life, grant, we beseech thee, that while meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen.'
-};
-
-function buildGuidedSequence(){
-  const data=mysteriesByDay[new Date().getDay()], seq=[];
-  seq.push({name:'Sign of the Cross',mystery:'Opening Prayers'});
-  seq.push({name:'Apostles’ Creed',mystery:'Opening Prayers'});
-  seq.push({name:'Our Father',mystery:'Opening Prayers'});
-  for(let i=1;i<=3;i++)seq.push({name:'Hail Mary',mystery:'Opening Prayers',hail:i,totalHails:3});
-  seq.push({name:'Glory Be',mystery:'Opening Prayers'});
-  data[1].forEach((m,mi)=>{
-    seq.push({name:'Announce the Mystery',mystery:`${mi+1}. ${m}`,text:`The ${ordinal(mi+1)} mystery: ${m}. Take a quiet moment to reflect on this mystery and offer your intention.`});
-    seq.push({name:'Our Father',mystery:`${mi+1}. ${m}`});
-    for(let i=1;i<=10;i++)seq.push({name:'Hail Mary',mystery:`${mi+1}. ${m}`,hail:i,totalHails:10});
-    seq.push({name:'Glory Be',mystery:`${mi+1}. ${m}`});
-    seq.push({name:'Fatima Prayer',mystery:`${mi+1}. ${m}`});
-  });
-  seq.push({name:'Hail Holy Queen',mystery:'Closing Prayers'});
-  seq.push({name:'Closing Prayer',mystery:'Closing Prayers'});
-  seq.push({name:'Sign of the Cross',mystery:'Closing Prayers'});
-  return seq;
-}
-function ordinal(n){return ['first','second','third','fourth','fifth'][n-1]||n+'th';}
-let guidedState=JSON.parse(localStorage.getItem('rtmGuidedState')||'{"step":0}');
-function saveGuided(){localStorage.setItem('rtmGuidedState',JSON.stringify(guidedState));}
-function startGuidedRosary(mysteryIndex=0){
-  const seq=buildGuidedSequence();
-  if(mysteryIndex>0){
-    const target=seq.findIndex(x=>x.mystery.startsWith((mysteryIndex+1)+'.')&&x.name==='Announce the Mystery');
-    guidedState.step=target>=0?target:0;
-  } else if(!Number.isFinite(guidedState.step)) guidedState.step=0;
-  saveGuided(); openScreen('guided'); renderGuidedStep();
-}
-function renderGuidedStep(){
-  const seq=buildGuidedSequence();
-  guidedState.step=Math.max(0,Math.min(guidedState.step,seq.length-1));
-  const item=seq[guidedState.step], data=mysteriesByDay[new Date().getDay()];
-  document.getElementById('guidedTitle').textContent=data[0];
-  document.getElementById('guidedMystery').textContent=item.mystery;
-  document.getElementById('guidedProgress').textContent=`Step ${guidedState.step+1} of ${seq.length}`;
-  document.getElementById('guidedProgressFill').style.width=((guidedState.step+1)/seq.length*100)+'%';
-  document.getElementById('guidedPrayerName').textContent=item.name+(item.hail?` ${item.hail} of ${item.totalHails}`:'');
-  document.getElementById('guidedPrayerText').textContent=item.text||guidedPrayerText[item.name]||'';
-  const dots=document.getElementById('guidedHailDots');
-  dots.innerHTML=item.hail?Array.from({length:item.totalHails},(_,i)=>`<span class="hail-dot ${i<item.hail?'done':''}"></span>`).join(''):'';
-  saveGuided();
-}
-function nextGuidedStep(){pauseGuidedAudio();const seq=buildGuidedSequence();if(guidedState.step<seq.length-1){guidedState.step++;renderGuidedStep();}else{document.getElementById('guidedPrayerName').textContent='Rosary Complete';document.getElementById('guidedPrayerText').textContent='Thank you for praying the Rosary. May Mary lead us always closer to Jesus.';}}
-function previousGuidedStep(){pauseGuidedAudio();if(guidedState.step>0)guidedState.step--;renderGuidedStep();}
-function restartGuidedRosary(){pauseGuidedAudio();guidedState.step=0;renderGuidedStep();}
-function speakGuidedStep(){
-  if(!('speechSynthesis' in window))return;
-  pauseGuidedAudio();
-  const seq=buildGuidedSequence(),item=seq[guidedState.step];
-  const text=item.text||guidedPrayerText[item.name]||'';
-  const u=new SpeechSynthesisUtterance(text);u.rate=.86;u.lang='en-AU';speechSynthesis.speak(u);
-}
-function repeatGuidedStep(){speakGuidedStep();}
-function pauseGuidedAudio(){if('speechSynthesis' in window)speechSynthesis.cancel();}
-
-
-const drivePrayers={
- opening:['In the name of the Father, and of the Son, and of the Holy Spirit. Amen.','The Apostles’ Creed','Our Father','Three Hail Marys','Glory Be'],
- decade:['Announce the mystery and pause for reflection.','Our Father','Hail Mary 1','Hail Mary 2','Hail Mary 3','Hail Mary 4','Hail Mary 5','Hail Mary 6','Hail Mary 7','Hail Mary 8','Hail Mary 9','Hail Mary 10','Glory Be','O my Jesus'],
- closing:['Hail Holy Queen','Final prayer','In the name of the Father, and of the Son, and of the Holy Spirit. Amen.']
-};
-const spokenText={
- 'The Apostles’ Creed':'I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord.','Our Father':'Our Father, who art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done on earth as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.','Glory Be':'Glory be to the Father, and to the Son, and to the Holy Spirit, as it was in the beginning, is now, and ever shall be, world without end. Amen.','O my Jesus':'O my Jesus, forgive us our sins, save us from the fires of hell, lead all souls to heaven, especially those most in need of your mercy.','Hail Holy Queen':'Hail, Holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.','Final prayer':'O God, whose only begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal life, grant, we beseech thee, that while meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen.'
-};
-let driveMode=localStorage.getItem('rtmDriveMode')||'listen';
-let driveState=JSON.parse(localStorage.getItem('rtmDriveState')||'{"mystery":0,"step":0,"running":false}');
-let recognition=null,voiceEnabled=false;
-function setDriveMode(mode){driveMode=mode;localStorage.setItem('rtmDriveMode',mode);document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));updateDriveDisplay();
-if(document.getElementById('guidedProgress')) renderGuidedStep();}
-function currentDriveSequence(){const dayData=mysteriesByDay[new Date().getDay()];let seq=[];drivePrayers.opening.forEach(x=>seq.push({mystery:-1,label:'Opening Prayers',text:x}));dayData[1].forEach((m,mi)=>drivePrayers.decade.forEach((x,si)=>seq.push({mystery:mi,label:m,text:si===0?m:x})));drivePrayers.closing.forEach(x=>seq.push({mystery:5,label:'Closing Prayers',text:x}));return seq;}
-function saveDrive(){localStorage.setItem('rtmDriveState',JSON.stringify(driveState));}
-function updateDriveDisplay(){const seq=currentDriveSequence(),item=seq[Math.min(driveState.step,seq.length-1)];document.getElementById('driveMysteryTitle').textContent=item.label;document.getElementById('drivePrayerText').textContent=item.text;document.getElementById('driveProgress').textContent=`Step ${driveState.step+1} of ${seq.length} · ${driveMode==='listen'?'Listen':driveMode==='along'?'Pray Along':'Respond'}`;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===driveMode));}
-function speechFor(item){if(item.text.startsWith('Hail Mary'))return 'Hail Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.';if(item.text==='Three Hail Marys')return 'Let us pray three Hail Marys for faith, hope, and charity.';if(item.text==='Announce the mystery and pause for reflection.')return item.label;return spokenText[item.text]||item.text;}
-function speakCurrent(){if(!('speechSynthesis' in window)){document.getElementById('voiceStatus').textContent='Spoken audio is not supported in this browser.';return;}const seq=currentDriveSequence(),item=seq[driveState.step];if(!item)return;speechSynthesis.cancel();let text=speechFor(item);if(driveMode==='respond'&&item.text.startsWith('Hail Mary'))text='Hail Mary, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Please respond.';const u=new SpeechSynthesisUtterance(text);u.rate=driveMode==='along'?.82:.9;u.onstart=()=>document.getElementById('voiceStatus').textContent='Speaking now…';u.onend=()=>{document.getElementById('voiceStatus').textContent=driveMode==='respond'?'Your response…':'Ready.';if(driveState.running){setTimeout(()=>nextDriveStep(true),driveMode==='respond'?5500:900);}};speechSynthesis.speak(u);}
-function startDrivingRosary(){driveState.running=true;saveDrive();updateDriveDisplay();speakCurrent();}
-function pauseDrivingRosary(){driveState.running=false;saveDrive();if('speechSynthesis'in window)speechSynthesis.cancel();document.getElementById('voiceStatus').textContent='Paused. Say “continue” or tap Start / Resume.';}
-function nextDriveStep(auto=false){const seq=currentDriveSequence();if(driveState.step<seq.length-1)driveState.step++;else{driveState.step=0;driveState.running=false;}saveDrive();updateDriveDisplay();if(driveState.running||auto)speakCurrent();}
-function repeatDriveStep(){if('speechSynthesis'in window)speechSynthesis.cancel();speakCurrent();}
-function resetDrivingRosary(){pauseDrivingRosary();driveState={mystery:0,step:0,running:false};saveDrive();updateDriveDisplay();document.getElementById('voiceStatus').textContent='Ready to begin from the opening prayers.';}
-function toggleVoiceCommands(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){document.getElementById('voiceStatus').textContent='Voice commands are not supported by this browser. Audio playback still works.';return;}if(voiceEnabled){voiceEnabled=false;recognition&&recognition.stop();document.getElementById('voiceButton').textContent='Enable Voice Commands';return;}recognition=new SR();recognition.continuous=true;recognition.interimResults=false;recognition.lang='en-AU';recognition.onresult=e=>{const cmd=e.results[e.results.length-1][0].transcript.toLowerCase();document.getElementById('voiceStatus').textContent=`Heard: “${cmd.trim()}”`;if(cmd.includes('pause')||cmd.includes('stop'))pauseDrivingRosary();else if(cmd.includes('continue')||cmd.includes('start')||cmd.includes('resume'))startDrivingRosary();else if(cmd.includes('next'))nextDriveStep();else if(cmd.includes('repeat'))repeatDriveStep();};recognition.onend=()=>{if(voiceEnabled)try{recognition.start()}catch{}};voiceEnabled=true;recognition.start();document.getElementById('voiceButton').textContent='Disable Voice Commands';document.getElementById('voiceStatus').textContent='Listening for voice commands.';}
-
-function enterChapel(){const w=document.getElementById('welcomeScreen');w.classList.add('entering');localStorage.setItem('rtmWelcomedV09','yes');setTimeout(()=>w.classList.add('hidden'),1200);}
-function prepareWelcome(){if(localStorage.getItem('rtmWelcomedV09')==='yes')document.getElementById('welcomeScreen').classList.add('hidden');}
-function renderGospel(){const item=gospels[Math.floor(Date.now()/86400000)%gospels.length];document.getElementById('gospelTitle').textContent=item[0];document.getElementById('gospelReading').textContent=item[1];document.getElementById('gospelReflection').textContent=item[2];document.getElementById('gospelAction').textContent=item[3];document.getElementById('gospelPreview').textContent=item[0]+' · '+item[1].replace(/[“”]/g,'');}
-function getJournal(){try{return JSON.parse(localStorage.getItem('rtmJournal')||'[]')}catch{return[]}}
-function saveJournalEntry(){const el=document.getElementById('journalInput'),text=el.value.trim();if(!text)return;const list=getJournal();list.unshift({text,date:new Date().toLocaleString('en-AU')});localStorage.setItem('rtmJournal',JSON.stringify(list));el.value='';renderJournal();}
-function renderJournal(){const el=document.getElementById('journalList'),list=getJournal();el.innerHTML=list.length?list.map(x=>`<div class="journal-entry"><time>${escapeHtml(x.date)}</time>${escapeHtml(x.text)}</div>`).join(''):'<p class="small">No reflections saved yet.</p>';}
-function clearJournal(){if(confirm('Clear all journal reflections?')){localStorage.removeItem('rtmJournal');renderJournal();}}
-
-prepareWelcome();
-setup();
-renderGospel();
-renderJournal();
-setDriveMode(driveMode);
-updateDriveDisplay();
+function setup(){const now=new Date();document.getElementById('todayDate').textContent=now.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});document.getElementById('greeting').textContent=now.getHours()<12?'Good Morning':now.getHours()<18?'Good Afternoon':'Good Evening';const d=mysteriesByDay[now.getDay()];document.getElementById('rosaryTitle').textContent=d[0]+' Mysteries';document.getElementById('rosaryIntro').textContent='Today the Church invites us to pray the '+d[0].toLowerCase()+' mysteries.';document.getElementById('mysteries').innerHTML=d[1].map((m,i)=>`<div class="mystery"><strong>${i+1}. ${m}</strong><div class="small">Our Father · 10 Hail Marys · Glory Be · Fatima Prayer</div></div>`).join('');renderSupport();renderIntentions();renderJournal();setAudioForToday();const a=document.getElementById('driveAudio');a.addEventListener('timeupdate',()=>{localStorage.setItem('rtmDriveTime',a.currentTime||0);localStorage.setItem('rtmDriveSrc',a.dataset.kind||'')});a.addEventListener('play',()=>showResume());showResume();}
+function renderSupport(){document.getElementById('supportGrid').innerHTML=supportItems.map(x=>`<button class="support-btn" onclick="openSupport('${x.key}')"><span>${x.icon}</span>${x.title}</button>`).join('')}
+function openSupport(key){activeSupport=supportItems.find(x=>x.key===key);document.getElementById('supportContent').innerHTML=`<h2>${activeSupport.icon} ${activeSupport.title}</h2><div class="support-reading"><blockquote>${activeSupport.verse}</blockquote><p class="prayer">${activeSupport.prayer}</p></div>`;document.getElementById('supportDetail').style.display='block';document.getElementById('supportDetail').scrollIntoView({behavior:'smooth'})}
+function speakSupport(){if(!activeSupport||!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(activeSupport.prayer);u.lang='en-AU';u.rate=.86;speechSynthesis.speak(u)}
+function dayKind(){return mysteriesByDay[new Date().getDay()][0].toLowerCase()}
+function setAudioForToday(){setDriveAudio(dayKind())}
+function setDriveAudio(kind){const a=document.getElementById('driveAudio');const same=localStorage.getItem('rtmDriveSrc')===kind;const saved=Number(localStorage.getItem('rtmDriveTime')||0);a.dataset.kind=kind;a.src=kind+'-rosary.mp3';document.getElementById('driveTitle').textContent=kind.charAt(0).toUpperCase()+kind.slice(1)+' Mysteries';a.load();if(same&&saved>2)a.addEventListener('loadedmetadata',function once(){a.removeEventListener('loadedmetadata',once);if(saved<a.duration-10)a.currentTime=saved;},{once:true});if('mediaSession'in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:document.getElementById('driveTitle').textContent,artist:'Road to Mary',album:'Driving Rosary'});navigator.mediaSession.setActionHandler('play',()=>a.play());navigator.mediaSession.setActionHandler('pause',()=>a.pause());navigator.mediaSession.setActionHandler('seekbackward',()=>a.currentTime=Math.max(0,a.currentTime-15));navigator.mediaSession.setActionHandler('seekforward',()=>a.currentTime=Math.min(a.duration||Infinity,a.currentTime+15));}}
+function resetDriveAudio(){const a=document.getElementById('driveAudio');a.pause();a.currentTime=0;localStorage.setItem('rtmDriveTime',0)}
+function showResume(){const kind=localStorage.getItem('rtmDriveSrc'),time=Number(localStorage.getItem('rtmDriveTime')||0),c=document.getElementById('resumeCard');if(kind&&time>10){c.style.display='block';c.innerHTML=`<strong>📿 Continue Your Rosary</strong><div class="small">${kind.charAt(0).toUpperCase()+kind.slice(1)} Mysteries · saved at ${Math.floor(time/60)} min ${Math.floor(time%60)} sec</div><button class="secondary" style="margin-top:8px" onclick="openScreen('driving');setDriveAudio('${kind}')">Continue</button>`}else c.style.display='none'}
+function getArr(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch{return[]}}
+function saveIntention(){const e=document.getElementById('intentionInput'),v=e.value.trim();if(!v)return;const a=getArr('rtmIntentions');a.unshift({t:new Date().toLocaleDateString(),v});localStorage.setItem('rtmIntentions',JSON.stringify(a));e.value='';renderIntentions()}
+function renderIntentions(){document.getElementById('intentionsList').innerHTML=getArr('rtmIntentions').map(x=>`<li><strong>${x.t}</strong><br>${x.v}</li>`).join('')}
+function saveJournal(){const e=document.getElementById('journalInput'),v=e.value.trim();if(!v)return;const a=getArr('rtmJournal');a.unshift({t:new Date().toLocaleString(),v});localStorage.setItem('rtmJournal',JSON.stringify(a));e.value='';renderJournal()}
+function renderJournal(){document.getElementById('journalList').innerHTML=getArr('rtmJournal').map(x=>`<li><strong>${x.t}</strong><br>${x.v}</li>`).join('')}
+window.addEventListener('pageshow',()=>{document.getElementById('welcomeScreen').classList.remove('hidden');openScreen('home')});document.addEventListener('DOMContentLoaded',setup);
 </script>
-</body>
-</html>
+</body></html>
